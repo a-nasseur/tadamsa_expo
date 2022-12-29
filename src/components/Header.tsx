@@ -42,6 +42,7 @@ const Header = (props: Props) => {
       to: { transform: 'scale(1)', letterSpacing: '5px'}
     },
     animation: 'zoomIn linear 4s forwards',
+    fontFamily: 'osande',
     color: 'white',
     fontWeight: 700,
     overflow: 'hidden', 
@@ -60,7 +61,6 @@ const Header = (props: Props) => {
             <Box sx={{ 
                 padding: 4, 
                 backgroundColor: 'rgba(0, 0, 0, .3)' , 
-                overflow: 'hidden'
               }}
               >
               <HeaderTitle variant='h3'>

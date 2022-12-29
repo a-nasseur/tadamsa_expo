@@ -1,4 +1,4 @@
-import { AppBar, styled, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, styled, Toolbar, Typography } from '@mui/material'
 import Image from 'next/image';
 import React from 'react';
 
@@ -7,6 +7,8 @@ import logo_black from '../../public/logos/logo_black.svg';
 import Link from 'next/link';
 
 type Props = {}
+
+
 
 const Navbar = (props: Props) => {
 
@@ -29,7 +31,7 @@ const Navbar = (props: Props) => {
     },
     {
       id: 4,
-      link: '/contacts',
+      link: '/contact',
       title: 'contacts'
     },
   ]
@@ -49,6 +51,9 @@ const Navbar = (props: Props) => {
 
   const CustomListContainer = styled('ul')(({ theme }) => ({
     display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
 
   }));
 
@@ -56,16 +61,13 @@ const Navbar = (props: Props) => {
     marginRight: '20px',
     textDecoration: 'none',
     transition: 'all .5s ease',
-    borderBottom: '1px solid transparent',
     padding: 7,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
-      borderBottom: '1px solid black',
       borderRadius: 2
     }
 
   }));
-
 
 
 
