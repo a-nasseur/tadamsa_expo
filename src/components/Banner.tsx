@@ -15,10 +15,11 @@ const Banner = ({ title, subtitle }: BannerProps) => {
         position: 'relative',
         width: '100%',
         margin: '0 auto',
-        backgroundImage: 'url(/mosque.jpeg)',
+        backgroundImage: 'url(/office.jpeg)',
         height: '100vh',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center bottom',
+        backgroundAttachment: 'fixed',
         '&::before': {
             content: '""',
             position: 'absolute',
@@ -47,6 +48,30 @@ const Banner = ({ title, subtitle }: BannerProps) => {
     flexDirection: 'column'
   }));
 
+
+  const Title = styled(Typography)(({ theme }) => ({
+    '@keyframes slideIn': {
+      from: {opacity: 0, transform: 'translateY(200%)'},
+      to: {opacity: 1,  transform: 'translateY(0)'}
+    },
+    
+    animation: 'slideIn linear .5s forwards',
+    fontFamily: 'Osande'
+  }));
+
+
+  const SubTitle = styled(Typography)(({ theme }) => ({
+    opacity: 0,
+    '@keyframes slideIn': {
+        from: {opacity: 0, transform: 'translateY(250%)'},
+        to: {opacity: 1,  transform: 'translateY(0)'}
+      },
+    animation: 'slideIn .2s linear .5s forwards',
+    fontFamily: 'Osande'
+  }));
+
+
+
   return (
     <BannerContainer>
         <TitleContainer>
@@ -58,34 +83,12 @@ const Banner = ({ title, subtitle }: BannerProps) => {
                     overflow: 'hidden'
                 }}
             >
-                <Typography
-                    variant='h2'
-                    fontFamily='osande'
-                    // sx={{
-                    //   '@keyframes slideIn': {
-                    //     from: { transform: 'translateY(200%)'},
-                    //     to: { transform: 'translateY(0)'}
-                    //   },
-                      
-                    //   animation: 'slideIn linear .5s forwards'
-                    // }}
-
-                >
+                <Title variant='h2'>
                    {title}
-                </Typography>
-                <Typography
-                    variant='h5'
-                    fontFamily='osande'
-                    sx={{
-                        '@keyframes slideIn': {
-                            from: { transform: 'translateY(250%)'},
-                            to: { transform: 'translateY(0)'}
-                          },
-                          animation: 'slideIn  linear 1.2s forwards'
-                    }}
-                >
+                </Title>
+                <SubTitle variant='h4' >
                    {subtitle}
-                </Typography>
+                </SubTitle>
             </Box>
         </TitleContainer>
     </BannerContainer>

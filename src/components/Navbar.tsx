@@ -62,6 +62,7 @@ const Navbar = (props: Props) => {
     textDecoration: 'none',
     transition: 'all .5s ease',
     padding: 7,
+    fontFamily: 'Osande',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
       borderRadius: 2
