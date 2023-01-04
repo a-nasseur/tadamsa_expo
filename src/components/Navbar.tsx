@@ -195,8 +195,8 @@ const Navbar = (props: Props) => {
           <List sx={{ padding: 1, marginTop: 4}}>
           {
             menuItems.map(elem => (
-              <>
-                <ListItem key={elem.id} >
+              <React.Fragment key={elem.id} >
+                <ListItem>
                   <Link href={elem.link} passHref>
                       <DrawerTitle 
                         variant='h5'
@@ -206,7 +206,7 @@ const Navbar = (props: Props) => {
                       </DrawerTitle>
                   </Link>
                 </ListItem>
-              </>
+              </React.Fragment>
               ))
           }
           </List>

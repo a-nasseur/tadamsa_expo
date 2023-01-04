@@ -3,10 +3,11 @@ import React from 'react'
 
 interface BannerProps {
   title?: string;
-  subtitle?: string
+  subtitle?: string;
+  backgroundImage?: string;
 }
 
-const Banner = ({ title, subtitle }: BannerProps) => {
+const Banner = ({ title, subtitle, backgroundImage }: BannerProps) => {
   
 
   // Styles
@@ -14,7 +15,7 @@ const Banner = ({ title, subtitle }: BannerProps) => {
         position: 'relative',
         width: '100%',
         margin: '0 auto',
-        backgroundImage: 'url(/office.jpeg)',
+        backgroundImage: `url(${backgroundImage})`,
         height: '100vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

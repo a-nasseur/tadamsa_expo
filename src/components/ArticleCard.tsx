@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 
 interface ArticleCardProps {
+    id?: number
     title?: string;
     image?: string;
     alt?: string;
@@ -11,7 +12,7 @@ interface ArticleCardProps {
 }
 
 
-const ArticleCard = ({ title, image, alt, date, excerpt }: ArticleCardProps) => {
+const ArticleCard = ({id, title, image, alt, date, excerpt }: ArticleCardProps) => {
   return (
         <Card
             sx={{
@@ -21,7 +22,7 @@ const ArticleCard = ({ title, image, alt, date, excerpt }: ArticleCardProps) => 
               }
             }}
           >
-            <Link href="#" passHref>
+            <Link href={`/article/${id}`} passHref>
               <CardMedia
                   component="img"
                   height="194"
@@ -36,7 +37,7 @@ const ArticleCard = ({ title, image, alt, date, excerpt }: ArticleCardProps) => 
               >
                {date}
               </Typography>
-              <Link href="#" passHref>
+              <Link href={`/article/${id}`} passHref>
                 <Typography
                   variant='h5'
                   fontFamily="Osande"

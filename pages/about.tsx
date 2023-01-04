@@ -209,7 +209,11 @@ const about = (props: Props) => {
        
     />
     
-    <Banner title="L'histoire derrière notre success" subtitle='A propos'/>
+    <Banner 
+      title="L'histoire derrière notre success" 
+      subtitle='A propos'
+      backgroundImage='https://images.unsplash.com/photo-1670272505497-d532f0b50702?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+    />
 
   
 
@@ -358,6 +362,7 @@ const about = (props: Props) => {
           articles.map(elem => (
           <Grid item xs={12} md={4} key={elem.id}>
             <ArticleCard  
+              id={elem.id}
               title={elem.title}
               image={elem.image}
               alt={elem.alt}
