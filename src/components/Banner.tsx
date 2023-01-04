@@ -11,14 +11,13 @@ const Banner = ({ title, subtitle }: BannerProps) => {
 
   // Styles
   const BannerContainer = styled(Box)(({ theme }) => ({
-        overflow: 'hidden',
         position: 'relative',
         width: '100%',
         margin: '0 auto',
         backgroundImage: 'url(/office.jpeg)',
         height: '100vh',
         backgroundSize: 'cover',
-        backgroundPosition: 'center bottom',
+        backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
         '&::before': {
             content: '""',
@@ -73,7 +72,7 @@ const Banner = ({ title, subtitle }: BannerProps) => {
 
 
   return (
-    <BannerContainer>
+    <BannerContainer id="banner">
         <TitleContainer>
             <Box 
                 sx={{ 

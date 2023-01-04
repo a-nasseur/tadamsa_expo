@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextSeo } from 'next-seo';
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography, styled } from '@mui/material';
+import { Box, Container, Grid, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -66,10 +66,46 @@ const events = [
  
 ]
 
+const logos = [
+  {
+    id: 1,
+    logo: logo1
+  },
+  {
+    id: 2,
+    logo: logo2
+  },
+  {
+    id: 3,
+    logo: logo3
+  },
+  {
+    id: 4,
+    logo: logo4
+  },
+  {
+    id: 5,
+    logo: logo4
+  },
+  {
+    id: 6,
+    logo: logo3
+  },
+  {
+    id: 7,
+    logo: logo2
+  },
+  {
+    id: 8,
+    logo: logo1
+  },
+]
+
 
 type Props = {}
 
 const about = (props: Props) => {
+  
 
   // Styles
   const RigthGrid = styled(Grid)(({ theme }) => ({
@@ -103,7 +139,7 @@ const about = (props: Props) => {
     // },
     position: 'relative',
     overflow: 'hidden',
-    height: '520px',
+    height: '480px',
     [theme.breakpoints.down('sm')]: {
       height: '350px'
     }
@@ -320,7 +356,7 @@ const about = (props: Props) => {
       <Grid container spacing={4} marginTop={3}>
         {
           articles.map(elem => (
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} key={elem.id}>
             <ArticleCard  
               title={elem.title}
               image={elem.image}
@@ -373,30 +409,13 @@ const about = (props: Props) => {
           architecto quod nostrum tempore culpa voluptas sequi? Officia, sed?
         </Typography>
         <Grid container spacing={6} marginTop={6}>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo1} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo2} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo3} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo4} alt="logo"  width={128} height={128}/>
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo3} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo4} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo2} alt="logo"  width={128} height={128} />
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ position: 'relative'}}>
-            <Image src={logo1} alt="logo"  width={128} height={128}/>
-          </Grid>
+          {
+            logos.map(elem => (
+              <Grid item xs={6} md={3} key={elem.id} sx={{ position: 'relative'}}>
+                <Image src={elem.logo} alt="logo"  width={128} height={128} />
+              </Grid>
+            ))
+          }
         </Grid>        
       </Container>
     </Box>

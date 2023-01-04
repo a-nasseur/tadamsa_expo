@@ -48,7 +48,15 @@ const Header = (props: Props) => {
     overflow: 'hidden', 
     whiteSpace: 'nowrap',
     margin: '0 auto',
+    
     // letterSpacing: '.15em',
+  }));
+
+
+  const TitleBackground = styled(Box)(({ theme }) => ({
+    padding: 32, 
+    backgroundColor: 'rgba(0, 0, 0, .3)' ,
+
   }));
 
   return (
@@ -58,15 +66,11 @@ const Header = (props: Props) => {
                 <source src="/videos/header.mp4" type="video/mp4"/>
             </video>
             <TitleContainer>
-            <Box sx={{ 
-                padding: 4, 
-                backgroundColor: 'rgba(0, 0, 0, .3)' , 
-              }}
-              >
-              <HeaderTitle variant='h3'>
-                Ready For Tomorrow's Algeria
-              </HeaderTitle>
-            </Box>
+              <TitleBackground>
+                <HeaderTitle variant='h3'>
+                  Ready For Tomorrow's Algeria
+                </HeaderTitle>
+              </TitleBackground>
             </TitleContainer>
         </VideoContainer>
     </>
