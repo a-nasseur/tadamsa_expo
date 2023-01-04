@@ -135,6 +135,7 @@ const Navbar = (props: Props) => {
   }));
 
 
+
   return (
     <>
       <AppBar color='transparent' elevation={0} id="appbar" sx={{ transition: 'background-color .2s ease'}}>

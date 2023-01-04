@@ -426,10 +426,11 @@ const about = (props: Props) => {
       </AboutTitle>
       <Typography
           variant='body1'
+          color='text.secondary'
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium qui fuga, 
-          nisi animi accusamus quia, veritatis sunt esse tempora quaerat necessitatibus, 
-          architecto quod nostrum tempore culpa voluptas sequi? Officia, sed?
+          Les innovations créatives sont le moteur du progrès et de l’avancement dans tous 
+          les domaines. Ce sont les idées, les solutions et les inventions qui repoussent les 
+          limites, remettent en question le statu quo et inspirent le changement.
         </Typography>
       <Grid container spacing={4} marginTop={6}>
         {
