@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 
-
+import '../config/firebase';
 import Layout from '../src/components/Layout';
 import theme from '../src/theme/theme';
 

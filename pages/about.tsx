@@ -24,7 +24,7 @@ import EventCard from '../src/components/EventCard';
 
 const articles = [
   { 
-    id: 1,
+    id: '8ep4mnkC4eGJ978buSdg',
     title: 'Les congrès et les salons repartent très fort en présentiel',
     image: 'https://images.unsplash.com/photo-1525402456151-11e51fa1b2f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1698&q=80',
     alt: 'Hall d"exhibition',
@@ -32,7 +32,7 @@ const articles = [
     excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
   },
   { 
-    id: 2,
+    id: 'e5FnrdC5STs2z2DOn4wF',
     title: 'GL Events: de nouveaux appels d’offres remportés',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
     alt: 'Conference',
@@ -362,7 +362,7 @@ const about = (props: Props) => {
           articles.map(elem => (
           <Grid item xs={12} md={4} key={elem.id}>
             <ArticleCard  
-              id={elem.id}
+              id={elem.id.toString()}
               title={elem.title}
               image={elem.image}
               alt={elem.alt}

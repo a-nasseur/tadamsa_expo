@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 
 interface ArticleCardProps {
-    id?: number
+    id?: string;
     title?: string;
     image?: string;
     alt?: string;

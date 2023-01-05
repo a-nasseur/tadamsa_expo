@@ -3,27 +3,77 @@ import { NextSeo } from 'next-seo';
 import Banner from '../../src/components/Banner';
 import { Box, Container, Typography } from '@mui/material';
 import Image from 'next/image';
+import { collection, getDocs, getDoc, doc} from "firebase/firestore"; 
+import { NextPageContext } from 'next';
 
-type Props = {}
+     
+import { db } from '../../config/firebase';
+
+type Props = {
+  post?: any
+}
+
+export const getStaticProps = async (ctx: any ) => {
+    try {
+    const ref = doc(db, 'posts', ctx.params.id)
+    const response = await getDoc(ref);
+    
+    const post = response.data();
 
 
-// export const getStaticProps = async (context: NextPageContext) => {
+    return {
+      props: {
+        post
+      }
+    }
+   
+    // console.log("list of posts from firestore: ", querySnapshot);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
-//     return {
-//         props: {
-//             context: context.params
-//         }
-//     }
-// }
 
-const article = ({  }: Props) => {
+export const getStaticPaths = async (ctx: NextPageContext) => {
+
+ try {
+    // Requesting all posts
+    const response = await getDocs(collection(db, 'posts'));
+
+    // declaring the ids array
+    let paths: any = [];
+
+    // extracting the ids
+    response.forEach(doc => {
+      paths.push({params: {id: doc.id.toString()}});
+    })
+
+
+
+    return {
+      paths,
+      fallback: false,
+    }
   
+ } catch (error) {
+  console.log(error);
+ }
+ 
+   
+
+}
+
+
+
+
+const article = ({ post }: Props) => {
+
 
   return (
     <>
         <NextSeo 
-            title="Tadamsa Expo | Article"
-            description="Organisateur d'événements sous la baniere des valeurs Tadamsa"
+            title={`Tadamsa Expo | ${post.title}`} 
+            description={post.excerpt}
             canonical="https://tadamsaexpo.com"
             openGraph={{
             url: 'https://www.tadamsaexpo.com',
@@ -58,32 +108,32 @@ const article = ({  }: Props) => {
         />
 
         <Banner 
-            title='Article Title' 
-            subtitle='Article author and date of publication' 
-            backgroundImage='https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
+            title={post.title}
+            subtitle={new Date(post.date).toDateString()}
+            backgroundImage={post.image}
         />
 
 
-        <Container maxWidth='lg' sx={{ marginTop: 6, textJustify: 'auto' }}>
+        <Container maxWidth='md' sx={{ marginTop: 6, textJustify: 'auto' }}>
             <Typography
               variant='h2'
               fontFamily="Osande"
             >
-              Le titre de l'article
+              {post.title}
             </Typography>
             <Typography
-              variant='body1'
+              variant='h6'
+              fontFamily="Osande"
 
             >
-              03 Janvier 2023
+             {new Date(post.date).toDateString()}
             </Typography>
             <Typography
               variant='body2'
               color='text.secondary'
               paddingY={4}
             >
-              
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt odio, beatae blanditiis repudiandae odit minus numquam veritatis voluptatum fuga repellendus minima incidunt laboriosam repellat, placeat magni reprehenderit quae, vel neque.
+              {post.excerpt}
             </Typography>
             <Typography
               variant='body1'
@@ -92,28 +142,9 @@ const article = ({  }: Props) => {
 
 
             >
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt odio, 
-              beatae blanditiis repudiandae odit minus numquam veritatis voluptatum 
-              fuga repellendus minima incidunt laboriosam repellat, placeat magni 
-              reprehenderit quae, vel neque.
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur 
-              officiis magni totam eum labore incidunt at pariatur veniam expedita vitae 
-              quae quidem corrupti, autem optio harum ad, nam minus? Et.
+              {post.content}
             </Typography>
-            <Typography
-              variant='body1'
-              color='text.secondary'
-
-
-            >
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt odio, 
-              beatae blanditiis repudiandae odit minus numquam veritatis voluptatum 
-              fuga repellendus minima incidunt laboriosam repellat, placeat magni 
-              reprehenderit quae, vel neque.
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur 
-              officiis magni totam eum labore incidunt at pariatur veniam expedita vitae 
-              quae quidem corrupti, autem optio harum ad, nam minus? Et.
-            </Typography>
+      
         </Container>
     </>
   )
