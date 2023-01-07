@@ -1,6 +1,10 @@
 import React from 'react'
 import Banner from '../src/components/Banner'
 import { NextSeo } from 'next-seo'
+import { Container } from '@mui/material'
+
+
+import Editor from '../src/components/Editor';
 
 type Props = {}
 
@@ -48,6 +52,11 @@ const events = (props: Props) => {
       subtitle='Construisez avec nous'
       backgroundImage='https://images.unsplash.com/photo-1544509538-ae815ae18e20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
     />
+
+
+
+    <Container maxWidth='md' sx={{ marginTop: 10 }}>
+    </Container>
     </>
   )
 }
