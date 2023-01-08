@@ -52,7 +52,7 @@ const articles = [
 
 const events = [
   { 
-    id: 1,
+    id: 'MtbDacjSV4vsHKD10eOr',
     image: 'https://images.unsplash.com/photo-1640914482949-b0e34060a615?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
   },
   { 
@@ -440,10 +440,11 @@ const about = (props: Props) => {
       <Grid container spacing={4} marginTop={6}>
         {
           events.map((elem, index) => (
-          <Grid item xs={12} md={4} key={index}>
-            <EventCard 
-              image={elem.image}
-            />
+          <Grid item xs={12} md={4} key={elem.id}>
+              <EventCard 
+                image={elem.image}
+                id={elem.id}
+              />         
           </Grid>
 
           ))

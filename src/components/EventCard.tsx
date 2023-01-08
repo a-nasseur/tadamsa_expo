@@ -4,13 +4,13 @@ import React from 'react'
 
 interface EventCardProps {
     image?: string;
-    id?: string;
+    id?: string | number;
 }
 
 const EventCard = ({ image, id}: EventCardProps) => {
   return (
     <Card>
-        <Link href="#" passHref>
+        <Link href={"/events/" + id} passHref>
             <CardMedia
                 component="img"
                 height="450"

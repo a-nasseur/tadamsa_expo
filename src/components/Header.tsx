@@ -68,7 +68,7 @@ const Header = (props: Props) => {
             <TitleContainer>
               <TitleBackground>
                 <HeaderTitle variant='h3'>
-                  Ready For Tomorrow's Algeria
+                  Ready For Tomorrow
                 </HeaderTitle>
               </TitleBackground>
             </TitleContainer>
