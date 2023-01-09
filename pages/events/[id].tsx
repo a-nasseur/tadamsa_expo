@@ -10,6 +10,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import EmailIcon from '@mui/icons-material/Email';
 
 
 import bevalg from '../../public/bevalg_single.png';
@@ -106,6 +109,14 @@ const eventSingle = ({ event }: Props) => {
     }
   }));
 
+  const ContactContainer = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    gap: '.8rem',
+    alignItems: 'center',
+    paddingBottom: '15px'
+
+  }));
+
   return (
     <>
         <NextSeo
@@ -164,7 +175,6 @@ const eventSingle = ({ event }: Props) => {
                 </Title>
                 <Typography
                     variant='body1'
-                    color='text.secondary'
                     gutterBottom
 
                 >
@@ -173,20 +183,11 @@ const eventSingle = ({ event }: Props) => {
                 <Typography
                     variant='body1'
                     color='text.secondary'
+                    gutterBottom
 
                 >
                     {event.description}
                 </Typography>
-                {/* <Title
-                    variant='h4' 
-                    sx={{ '&:after': { backgroundColor: 'black'}}}
-                    paddingTop={6}
-                    gutterBottom
-                >
-
-                    Entrer en contact
-                </Title>
-                 */}
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -203,15 +204,14 @@ const eventSingle = ({ event }: Props) => {
                         color="text.secondary"
                         fontWeight={300}
                     >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Cumque earum voluptatum necessitatibus possimus iusto culpa 
-                        perspiciatis quod velit inventore similique facilis et ut dolore, 
-                        sed consectetur. A quas eveniet mollitia!
-                    </Typography>    
+                        {event.sidebarExcerpt}
+                    </Typography>   
+
+                 
                 </Box>
 
                 <Grid container spacing={2} sx={{ marginTop: 4 }}>
-                    <Grid item xs={4} md={4}>
+                    <Grid item xs={4} md={4} >
                         <Image src={bevalg} alt="bevalg" className={styles.instagram} /> 
                     </Grid>
                     <Grid item xs={4} md={4}>
@@ -233,32 +233,95 @@ const eventSingle = ({ event }: Props) => {
                 </Grid>
 
                 <Box marginTop={4}>
+                <Title 
+                        variant='h5' 
+                        sx={{ '&:after': { backgroundColor: '#000'}}}
+                        paddingTop={3}
+                    >
+                        Siteweb officiel
+                    </Title>
+                    <Link href={event.website.link} passHref target='_blank'>
+                        <Typography
+                            variant='body1'
+                            fontFamily="Osande"
+                            color='text.secondary'
+                            sx={{
+                                transition: 'color .4s ease',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                    color: 'primary.main'
+                                }
+                            }}
+
+                        >
+                            {event.website.title}
+                        </Typography>
+                    </Link>
+                    <Box>
+                        <Title
+                            variant='h5' 
+                            sx={{ '&:after': { backgroundColor: 'black'}}}
+                            paddingTop={6}
+                            gutterBottom
+                        >
+
+                            Entrer en contact
+                        </Title>
+                        <ContactContainer>
+                            <SmartphoneIcon /> 
+                            <Typography
+                              variant='subtitle2'
+                              color='text.secondary'
+                            >
+                               {event.contact.phone}
+                            </Typography>
+                        </ContactContainer>
+                        <ContactContainer>
+                            <WhatsAppIcon color='success'/> 
+                            <Typography
+                              variant='subtitle2'
+                              color='text.secondary'
+                            >
+                                {event.contact.whatsapp}
+                            </Typography>
+                        </ContactContainer>
+                        <ContactContainer>
+                            <EmailIcon /> 
+                            <Typography
+                              variant='subtitle2'
+                              color='text.secondary'
+                            >
+                                {event.contact.email}
+                            </Typography>
+                        </ContactContainer>
+                    </Box>
                     <Title
                         variant='h5' 
-                        sx={{ '&:after': { backgroundColor: 'primary.main'}}}
+                        sx={{ '&:after': { backgroundColor: '#000'}}}
                         gutterBottom
+                        paddingTop={3}
                     >
                         Suivez nous
                     </Title>
                     <SocialMediaContainer>
                         <Link href={event.socialLinks.facebook} passHref target="_blank">
-                            <IconButtons>
-                                <FacebookIcon  fontSize='inherit'/>
+                            <IconButtons sx={{ color: '#4267B2'}}>
+                                <FacebookIcon  fontSize='medium' color='inherit'/>
                             </IconButtons>
                         </Link>
                         <Link href={event.socialLinks.twitter} passHref target="_blank">
-                            <IconButtons>
-                                <TwitterIcon  fontSize='inherit'/>
+                            <IconButtons sx={{ color: '#00acee'}}>
+                                <TwitterIcon  fontSize='medium'/>
                             </IconButtons>
                         </Link>
                         <Link href={event.socialLinks.linkedin} passHref target="_blank">
-                            <IconButtons>
-                                <LinkedInIcon  fontSize='inherit'/>
+                            <IconButtons sx={{ color: '#0e76a8' }}>
+                                <LinkedInIcon  fontSize='medium'/>
                             </IconButtons>
                         </Link>
                         <Link href={event.socialLinks.instagram} passHref target="_blank">
-                            <IconButtons>
-                                <InstagramIcon  fontSize='inherit'/>
+                            <IconButtons sx={{ color: '#bc2a8d' }}>
+                                <InstagramIcon  fontSize='medium'/>
                             </IconButtons>
                         </Link>
                     </SocialMediaContainer>
