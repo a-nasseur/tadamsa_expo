@@ -8,6 +8,16 @@ let theme = createTheme({
         secondary: {
             main: '#000'
         }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    fontFamily: "Osande",
+                    borderRadius: 0
+                }
+            }
+        }
     }
 });
 

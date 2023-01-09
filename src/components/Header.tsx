@@ -63,7 +63,7 @@ const Header = (props: Props) => {
     <>
         <VideoContainer component='div'>
             <video className='video' autoPlay muted loop>
-                <source src="/videos/header.mp4" type="video/mp4"/>
+                <source src="/videos/header.webm" type="video/webm"/>
             </video>
             <TitleContainer>
               <TitleBackground>
