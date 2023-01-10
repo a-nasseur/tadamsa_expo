@@ -1,9 +1,14 @@
-import { Box, Typography, styled } from '@mui/material';
+import { Box, IconButton, Typography, styled } from '@mui/material';
 import React from 'react'
+import VolumeButton from './VolumeButton';
+
 
 type Props = {}
 
 const Header = (props: Props) => {
+  // local states
+  const [volume, setVolume] = React.useState<boolean>(true);
+
 
   // styles
   const VideoContainer = styled(Box)(({ theme }) => ({
@@ -59,10 +64,12 @@ const Header = (props: Props) => {
 
   }));
 
+
+
   return (
     <>
         <VideoContainer component='div'>
-            <video className='video' autoPlay muted loop>
+            <video className='video' id="video" autoPlay muted loop>
                 <source src="/videos/header.webm" type="video/webm"/>
             </video>
             <TitleContainer>
@@ -72,6 +79,7 @@ const Header = (props: Props) => {
                 </HeaderTitle>
               </TitleBackground>
             </TitleContainer>
+            <VolumeButton  />
         </VideoContainer>
     </>
   )

@@ -58,7 +58,7 @@ const Navbar = (props: Props) => {
     {
       id: 2,
       link: '/about',
-      title: 'Qui sommes nous'
+      title: 'Qui sommes nous ?'
     },
     {
       id: 3,

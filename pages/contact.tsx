@@ -169,7 +169,7 @@ const contact = (props: Props) => {
               Adresse
             </Title>
             <Typography
-                variant='subtitle2'
+                variant='subtitle1'
                 color='text.secondary'
               >
                 06 Rue ADMANE Arezki, Alger Ctre 16000
