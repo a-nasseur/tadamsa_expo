@@ -74,7 +74,7 @@ const Navbar = (props: Props) => {
 
 
   // Logo resizing
-  const width: number = 200;
+  const width: number = 180;
   const height: number = width / 2;
 
   // Styles
@@ -142,12 +142,10 @@ const Navbar = (props: Props) => {
         <CustomToolbar>
           <Link href='/' passHref as="/">
             <Image 
-              priority
               src={logo_black} 
               alt="Tadamsa expo logo" 
               width={width} 
               height={height}
-              blurDataURL={logo_black}
             />
           </Link>
           <CustomListContainer>

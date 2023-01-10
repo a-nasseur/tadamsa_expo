@@ -20,6 +20,7 @@ import logo3 from '../public/logos/asp.png';
 import logo4 from '../public/logos/nvidia.png';
 import Link from 'next/link';
 import EventCard from '../src/components/EventCard';
+import Footer from '../src/components/Footer';
 
 
 const articles = [
@@ -452,10 +453,7 @@ const about = (props: Props) => {
       </Grid>
     </Container>
 
-    <Box sx={{ marginTop: 6 }}>
-
-    </Box>
-
+    <Footer />
 
 
     </>

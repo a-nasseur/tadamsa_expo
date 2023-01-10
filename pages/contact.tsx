@@ -5,6 +5,7 @@ import { Box, Button, Container, FormControl, FormGroup, FormLabel, Grid, TextFi
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
+import Footer from '../src/components/Footer';
 
 
 
@@ -213,6 +214,7 @@ const contact = (props: Props) => {
         </Grid>
       </Grid>
     </Container>
+    <Footer />
     </>
   )
 }
