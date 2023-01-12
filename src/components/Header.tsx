@@ -6,8 +6,6 @@ import VolumeButton from './VolumeButton';
 type Props = {}
 
 const Header = (props: Props) => {
-  // local states
-  const [volume, setVolume] = React.useState<boolean>(true);
 
 
   // styles
@@ -75,7 +73,7 @@ const Header = (props: Props) => {
             <TitleContainer>
               <TitleBackground>
                 <HeaderTitle variant='h3'>
-                  Ready For Tomorrow
+                  Building the future together
                 </HeaderTitle>
               </TitleBackground>
             </TitleContainer>

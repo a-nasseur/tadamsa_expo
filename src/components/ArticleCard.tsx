@@ -12,7 +12,7 @@ interface ArticleCardProps {
 }
 
 
-const ArticleCard = ({id, title, image, alt, date, excerpt }: ArticleCardProps) => {
+const ArticleCard = ({ id, title, image, alt, date, excerpt }: ArticleCardProps) => {
   return (
         <Card
             sx={{
@@ -63,4 +63,4 @@ const ArticleCard = ({id, title, image, alt, date, excerpt }: ArticleCardProps) 
   )
 }
 
-export default ArticleCard
+export default ArticleCard;
