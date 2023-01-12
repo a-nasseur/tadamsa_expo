@@ -5,9 +5,10 @@ interface BannerProps {
   title?: string;
   subtitle?: string;
   backgroundImage?: string;
+  children?: React.ReactNode;
 }
 
-const Banner = ({ title, subtitle, backgroundImage }: BannerProps) => {
+const Banner = ({ title, subtitle, backgroundImage, children }: BannerProps) => {
   
 
   // Styles
@@ -90,6 +91,7 @@ const Banner = ({ title, subtitle, backgroundImage }: BannerProps) => {
                    {subtitle}
                 </SubTitle>
             </Box>
+              {children}
         </TitleContainer>
     </BannerContainer>
   )
