@@ -1,11 +1,17 @@
 import React from 'react'
-import Banner from '../../src/components/Banner'
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from '../_app';
 import { NextSeo } from 'next-seo'
+
+
+
 import Footer from '../../src/components/Footer'
+import Layout from '../../src/components/Layout';
+import Banner from '../../src/components/Banner'
 
 type Props = {}
 
-const events = (props: Props) => {
+const Events: NextPageWithLayout = (props: Props) => {
   return (
     <>
       <NextSeo 
@@ -57,4 +63,12 @@ const events = (props: Props) => {
   )
 }
 
-export default events
+Events.getLayout = function getLayout(events: ReactElement){
+  return (
+    <Layout>
+      {events}
+    </Layout>
+  )
+}
+
+export default Events

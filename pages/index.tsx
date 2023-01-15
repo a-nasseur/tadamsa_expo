@@ -1,8 +1,11 @@
 import { Typography } from "@mui/material"
 import Meta from "../src/utils/Meta"
 import Header from "../src/components/Header"
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from './_app';
+import Layout from "../src/components/Layout";
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
 
 
   return (
@@ -48,3 +51,13 @@ export default function Home() {
      </>
   )
 }
+
+Home.getLayout = function getLayout(home: ReactElement){
+  return (
+    <Layout>
+      {home}
+    </Layout>
+  )
+}
+
+export default Home;

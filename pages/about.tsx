@@ -1,4 +1,6 @@
 import React from 'react';
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from './_app';
 import { NextSeo } from 'next-seo';
 import { Box, Container, Grid, Typography, styled } from '@mui/material';
 import Image from 'next/image';
@@ -21,6 +23,7 @@ import logo4 from '../public/logos/nvidia.png';
 import Link from 'next/link';
 import EventCard from '../src/components/EventCard';
 import Footer from '../src/components/Footer';
+import Layout from '../src/components/Layout';
 
 
 const articles = [
@@ -105,7 +108,7 @@ const logos = [
 
 type Props = {}
 
-const about = (props: Props) => {
+const About: NextPageWithLayout = () => {
   
 
   // Styles
@@ -460,4 +463,14 @@ const about = (props: Props) => {
   )
 }
 
-export default about
+
+// Page Layout
+About.getLayout = function getLayout(about: ReactElement) {
+  return (
+    <Layout>
+      {about}
+    </Layout> 
+  )
+}
+
+export default About;

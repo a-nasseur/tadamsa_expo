@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from '../_app';
 import Banner from '../../src/components/Banner';
 import { NextSeo } from 'next-seo';
 import { Avatar, Box, Container, Grid, IconButton, Typography, styled } from '@mui/material';
@@ -18,6 +20,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import bevalg from '../../public/bevalg_single.png';
 import { db } from '../../config/firebase';
 import Link from 'next/link';
+import Layout from '../../src/components/Layout';
 
 
      
@@ -78,7 +81,7 @@ export const getStaticPaths = async (ctx: NextPageContext) => {
 
 
 
-const eventSingle = ({ event }: Props) => {
+const EventSingle: NextPageWithLayout = ({ event }: Props) => {
 
 
   const Title = styled(Typography)(({ theme }) => ({
@@ -335,4 +338,13 @@ const eventSingle = ({ event }: Props) => {
   )
 }
 
-export default eventSingle;
+
+EventSingle.getLayout = function getLayout(singleEvent: ReactElement){
+  return (
+    <Layout>
+      {singleEvent}
+    </Layout>
+  )
+}
+
+export default EventSingle;

@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
-import Banner from '../src/components/Banner'
+import Banner from '../src/components/Banner';
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from './_app';
 import { NextSeo } from 'next-seo'
 import { Box, Button, Container, FormControl, FormGroup, FormLabel, Grid, TextField, Typography, styled } from '@mui/material'
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 import Footer from '../src/components/Footer';
+import Layout from '../src/components/Layout';
 
 
 
 type Props = {}
 
-const contact = (props: Props) => {
+const Contact: NextPageWithLayout = (props: Props) => {
   const [fullName, setFullName] = useState();
   const [email, setEmail] = useState();
   const [company, setCompany] = useState();
@@ -219,4 +222,12 @@ const contact = (props: Props) => {
   )
 }
 
-export default contact
+Contact.getLayout = function getLayout(contact: ReactElement){
+  return (
+    <Layout>
+      {contact}
+    </Layout>
+  )
+}
+
+export default Contact;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from '../_app';
 import { NextSeo } from 'next-seo';
 import Banner from '../../src/components/Banner';
 import { Box, Container, Typography } from '@mui/material';
@@ -8,6 +10,8 @@ import { NextPageContext } from 'next';
 
      
 import { db } from '../../config/firebase';
+import Layout from '../../src/components/Layout';
+import Footer from '../../src/components/Footer';
 
 type Props = {
   post?: any
@@ -66,7 +70,7 @@ export const getStaticPaths = async (ctx: NextPageContext) => {
 
 
 
-const article = ({ post }: Props) => {
+const Article: NextPageWithLayout = ({ post }: Props) => {
 
 
   return (
@@ -146,8 +150,18 @@ const article = ({ post }: Props) => {
             </Typography>
       
         </Container>
+
+        <Footer />
     </>
   )
 }
 
-export default article;
+Article.getLayout = function getLayout(article: ReactElement) {
+  return (
+    <Layout>
+      {article}
+    </Layout>
+  )
+}
+
+export default Article;
