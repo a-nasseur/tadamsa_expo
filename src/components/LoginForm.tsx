@@ -1,14 +1,21 @@
 import { Button, Card, CardContent, Container, FormControl, FormGroup, TextField, Typography, styled } from '@mui/material'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    onClick?: any
+}
 
-const LoginForm = (props: Props) => {
+const LoginForm = ({ onClick }: Props) => {
+  // local state
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
+    
   const CustomTextField = styled(TextField)(({ theme }) => ({
     backgroundColor: '#fff',
     marginBottom: '15px'
   }));
+
 
   return (
     <Container maxWidth='xs' sx={{marginTop: '50px'}}>
@@ -24,23 +31,25 @@ const LoginForm = (props: Props) => {
                 >
                     Connection
                 </Typography>
-                <FormControl>
-                    <FormGroup>
-                        <CustomTextField 
-                            placeholder='Email'
-                            type="text"
-                            name="email"                        
-                        />
-                        <CustomTextField 
-                            placeholder='Mot de passe'
-                            type="password"
-                            name="password"
-                        />
-                    </FormGroup>
-                    <Button variant='contained' size='large'>
-                        Connection
-                    </Button>
-                </FormControl>  
+                <form>
+                    <FormControl>
+                        <FormGroup>
+                            <TextField 
+                                placeholder='Email'
+                                type="text"
+                                onChange={(e: any) => setEmail(e.target.value)}                       
+                            />
+                            <TextField 
+                                placeholder='Mot de passe'
+                                type="password"
+                                onChange={(e: any) => setPassword(e.target.value)}         
+                            />
+                        </FormGroup>
+                        <Button variant='contained' size='large' onClick={() => onClick(email, password)}>
+                            Connection
+                        </Button>
+                    </FormControl>  
+                </form>
             </CardContent>
         </Card>
     </Container>

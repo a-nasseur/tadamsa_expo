@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { Box, Container, Typography, styled } from '@mui/material';
 import { NextSeo } from 'next-seo';
+import { Oval } from 'react-loader-spinner';
 
 import { auth } from '../config/firebase';
 
@@ -10,7 +11,7 @@ type Props = {}
 
 const dashboard = (props: Props) => {
   // local states
-  const [loading, setLoading] = React.useState<boolean>(false)
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   // initializing router
   const router = useRouter();
@@ -46,7 +47,7 @@ const dashboard = (props: Props) => {
 
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      user ? setLoading(true) : setLoading(true);
+      user ? setLoading(false) : setLoading(true);
     });
 
 
@@ -93,7 +94,7 @@ const dashboard = (props: Props) => {
       <DashboardContainer maxWidth='lg'>
           <RedirectionContainer>
              {
-                loading && 
+                !loading &&
             
                 <Typography
                   variant='h3'
@@ -105,7 +106,7 @@ const dashboard = (props: Props) => {
               }
 
               {
-                !loading &&
+                loading &&
                 <Box>
                   <Typography
                     variant='h3'
