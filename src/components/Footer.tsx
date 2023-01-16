@@ -14,7 +14,7 @@ const Footer = (props: Props) => {
   const FooterContainer = styled(Box)(({ theme }) => ({
      padding: '40px 0px 40px 0px',
      marginTop: '80px',
-     backgroundColor: '#000'
+     backgroundColor: '#000',
   }));   
 
   const FooterTitle = styled(Typography)(({ theme }) => ({
