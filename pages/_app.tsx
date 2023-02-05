@@ -6,7 +6,6 @@ import type { NextPage } from 'next'
 
 // Custom components imports
 import '../config/firebase';
-import Layout from '../src/components/Layout';
 import theme from '../src/theme/theme';
 
 // Extending the types to include nested layouts per page
