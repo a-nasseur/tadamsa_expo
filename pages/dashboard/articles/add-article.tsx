@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import {$getRoot, $getSelection} from 'lexical';
+import React, { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../../_app';
 import Layout from '../../../src/components/dashboard/Layout';
 import { Formik } from 'formik';
-import { Box, Button, Container, FormControl, FormGroup, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, FormGroup, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { Oval } from 'react-loader-spinner';
 
 
-import Editor from '../../../src/components/dashboard/editor/Editor';
+import Tiptap from '../../../src/components/dashboard/tiptap/Tiptap';
+import Image from 'next/image';
 
 type Props = {}
 
 const AddArticle: NextPageWithLayout = (props: Props) => {
+
   // local states 
   const [info, setInfo] = useState<boolean>(true);
   const [comment, setComment] = useState<boolean>(false);
+  const [content, setContent] = useState<any>();
+  const [title, setTitle] = useState('');
+  const [slug, setSlug] = useState('');
+  const [excerpt, setExcerpt] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
 
   
   // handlers
@@ -30,18 +37,40 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
     setInfo(false)
     setComment(true)
   }
-
-  // handleContent
-  function onChange(editorState: any) {
-    console.log(JSON.stringify(editorState));
-    editorState.read(() => {
-      // console.log(JSON.stringify(editorState))
-      // Read the contents of the EditorState here.
-      const root = $getRoot();
-      const selection = $getSelection();
-    });
-  }
   
+  const formatSlug = () => {
+    const slug = title.toLocaleLowerCase();
+    const splitted = slug.split(' ');
+    return splitted.join('-')
+  }
+
+  const editorContent = (content: any) => {
+    setContent(content)
+  }
+
+  const handleUpload = (files: any) => {
+    console.log(files);
+    const imageUrl = URL.createObjectURL(files[0]);
+    console.log(imageUrl);
+    setImageUrl(imageUrl);
+  }
+
+  const handleForm = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const body = {
+      title,
+      slug,
+      excerpt,
+      content: content,
+    }
+
+    console.log(body)
+
+    setLoading(false)
+  }
+
 
   // date
   const date = new Date("2023-02-12T23:50:21.817Z").toDateString();
@@ -62,9 +91,14 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
     title: '',
     slug: '',
     excerpt: '',
-    content: '',
+    content: useMemo(() => {
+      return content
+    }, [content]),
     thumbnail: '',
   }
+
+
+
 
   return (
     <Container sx={{ p: 1 }} maxWidth='xl'>
@@ -73,106 +107,62 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
         >
             Ajouter un Article
         </Typography>
-        <Grid container marginTop={4}>
+        <Grid container columnSpacing={4} marginTop={4}>
             <Grid item xs={12} md={8}>
-                {/* <FormControl fullWidth>
-                    <TextField  
-                        sx={{ marginBottom: 2}}
-                        fullWidth
-                        id="title"
-                        name="title"
-                        label="Titre"
-                        value={formik.values.title}
-                        onChange={formik.handleChange}
-                        error={formik.touched.title && Boolean(formik.errors.title)}
-                        helperText={formik.touched.title && formik.errors.title}
-                        
+                  <FormControl fullWidth>
+                    <TextField 
+                      placeholder='Titre'
+                      type='text'
+                      onChange={(e) => setTitle(e.target.value)}
                     />
-                    <TextField  
-                        sx={{ marginBottom: 2}}
-                        fullWidth
-                        id="slug"
-                        name="slug"
-                        label="Slug"
-                        value={formik.values.slug}
-                        onChange={formik.handleChange}
-                        error={formik.touched.slug && Boolean(formik.errors.slug)}
-                        helperText={formik.touched.slug && formik.errors.slug}
-                        
+                    <TextField 
+                      placeholder='Slug'
+                      type='text'
+                      value={formatSlug()}
+                      onChange={(e) => setSlug(e.target.value)}
                     />
-                    <TextField  
-                        sx={{ marginBottom: 2}}
-                        fullWidth
-                        id="excerpt"
-                        name="excerpt"
-                        label="Extrait"
-                        multiline
-                        rows={2}
-                        value={formik.values.excerpt}
-                        onChange={formik.handleChange}
-                        error={formik.touched.excerpt && Boolean(formik.errors.excerpt)}
-                        helperText={formik.touched.excerpt && formik.errors.excerpt}
-                        
+                    <TextField 
+                      placeholder='Extrait'
+                      type='text'
+                      onChange={(e) => setExcerpt(e.target.value)}
                     />
-                    <TextField  
-                        sx={{ marginBottom: 2}}
-                        fullWidth
-                        id="content"
-                        name="content"
-                        label="Article"
-                        multiline
-                        rows={8}
-                        value={formik.values.content}
-                        onChange={formik.handleChange}
-                        error={formik.touched.content && Boolean(formik.errors.content)}
-                        helperText={formik.touched.content && formik.errors.content}
-                        
-                    />
-                </FormControl> */}
-                <Formik
-                  initialValues={initialValues}
-                  onSubmit={values => console.log(values)}
-                >
-                  {
-                    ({ handleSubmit, handleChange }) => (
-                      <FormControl>
-                        <FormGroup>
-                          <TextField 
-                            placeholder='Titre'
-                            type='text'
-                            name='title'
-                            onChange={handleChange('title')}
-                            sx={{ marginBottom: 2}}
+                    <Typography
+                      variant='h6'
+                      color='text.secondary'
+                    >
+                      Image du post
+                    </Typography>
+                    <Button variant="contained" component="label">
+                      Upload
+                      <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e.target.files)}/>
+                    </Button>
+                    {
+                      imageUrl ?
+                      <Image src={imageUrl} width={100} height={100} alt='post image' />
+                      :
+                      null
+                    }
+                    <Tiptap setContent={editorContent}/>
+                    <Button onClick={handleForm} variant='contained'> 
+                      {
+                        loading ? 
 
-                          />
-                          <TextField 
-                            placeholder='Slug'
-                            type='text'
-                            name='slug'
-                            onChange={handleChange('slug')}
-                            sx={{ marginBottom: 2}}
+                          <Oval 
+                            height={18}
+                            width={18}
+                            color='#fff'
+                            secondaryColor='#fff'
 
-                          />
-                          <TextField 
-                            placeholder='Extrait'
-                            type='text'
-                            name='title'
-                            onChange={handleChange('excerpt')}
-                            sx={{ marginBottom: 2}}
-                          />
-                          <Editor onChange={onChange}/>
-                        </FormGroup>
-                        <>
-                          <Button variant='contained' onClick={() => handleSubmit()} >
-                            Publier
-                          </Button>
-                        </>
-                      </FormControl>
-                    )
-                  }
-                </Formik>
+                        />
+
+                        :
+
+                        'Publier'
+                      }
+                    </Button>
+                  </FormControl>
             </Grid>
-            <Grid item xs={12} md={4} >
+            {/* <Grid item xs={12} md={4} >
               <Box
                 sx={{
                   display: 'flex',
@@ -241,6 +231,27 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
                       alignItems: 'center'
                     }}
                   >
+                    <Typography
+                      variant='body2'
+                      gutterBottom
+                    >
+                      Slug
+                    </Typography>
+                    <Typography
+                      variant='body2'
+                      gutterBottom
+                      color='text.secondary'
+                    >
+                      {formatSlug()}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
                   <Typography
                     variant='body1'
                     gutterBottom
@@ -295,7 +306,7 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
                   </Typography>
                 </Box>
               }
-            </Grid>
+            </Grid> */}
         </Grid> 
     </Container>
   )
