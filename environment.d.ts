@@ -9,6 +9,7 @@ declare global {
         NEXT_PUBLIC_FIREBASE_MESSAGING_SENDING_ID: string;
         NEXT_PUBLIC_FIREBASE_APP_ID: string;
         NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: string;
+        NEXT_PUBLIC_BASE_API_ROUTE: string;
       }
     }
   }

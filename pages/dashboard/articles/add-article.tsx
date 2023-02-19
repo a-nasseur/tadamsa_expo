@@ -1,15 +1,16 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../../_app';
-import Layout from '../../../src/components/dashboard/Layout';
-import { Formik } from 'formik';
-import { Box, Button, Container, FormControl, FormGroup, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { Box, Button, Container, FormControl, FormGroup, Grid, TextField, Typography } from '@mui/material';
 import { Oval } from 'react-loader-spinner';
+// import { CldUploadButton, CldImage } from 'next-cloudinary';
 
 
+import Layout from '../../../src/components/dashboard/Layout';
 import Tiptap from '../../../src/components/dashboard/tiptap/Tiptap';
-import Image from 'next/image';
+import { db } from '../../../config/firebase';
 
 type Props = {}
 
@@ -26,16 +27,22 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
   const [imageUrl, setImageUrl] = useState<string | undefined>();
 
   
+  // Effects
+  
+  // Updating the slug state based on the formated title state
+  useEffect(() => {
+    setSlug(formatSlug())
+  }, [title]);
+
   // handlers
   const handleInfo = () => {
-    setComment(false)
-    setInfo(true)
-
+    setComment(false);
+    setInfo(true);
   }
 
   const handleComment = () => {
-    setInfo(false)
-    setComment(true)
+    setInfo(false);
+    setComment(true);
   }
   
   const formatSlug = () => {
@@ -44,29 +51,42 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
     return splitted.join('-')
   }
 
-  const editorContent = (content: any) => {
-    setContent(content)
-  }
 
-  const handleUpload = (files: any) => {
-    console.log(files);
-    const imageUrl = URL.createObjectURL(files[0]);
-    console.log(imageUrl);
-    setImageUrl(imageUrl);
+
+  const editorContent = (content: any) => {
+    return setContent(content)
+  }
+  
+
+  const handleUpload = (error: Error, result: any, widget: any) => {
+    error ? console.log(error): 
+    result ? console.log(result) : 
+    console.log('khraaaaaaa');
   }
 
   const handleForm = async (e: any) => {
     e.preventDefault();
     setLoading(true);
 
+    const docRef = collection(db, 'posts')
+
     const body = {
       title,
       slug,
       excerpt,
-      content: content,
+      content: JSON.stringify(content),
+      createdDate: Timestamp.now().toDate(),
+      createdBy: {
+        avatar: '',
+        fullName: "Abdelhak NASSEUR",
+        id: 'uT3jVN6KCuQ75H1UEEeUwoB3o7X2'
+      },
+      image: ''
     }
 
-    console.log(body)
+    const response = await addDoc(docRef, body);
+
+    console.log(response.id);
 
     setLoading(false)
   }
@@ -87,18 +107,6 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
       .required('Password is required'),
   });
 
-  const initialValues = {
-    title: '',
-    slug: '',
-    excerpt: '',
-    content: useMemo(() => {
-      return content
-    }, [content]),
-    thumbnail: '',
-  }
-
-
-
 
   return (
     <Container sx={{ p: 1 }} maxWidth='xl'>
@@ -110,38 +118,39 @@ const AddArticle: NextPageWithLayout = (props: Props) => {
         <Grid container columnSpacing={4} marginTop={4}>
             <Grid item xs={12} md={8}>
                   <FormControl fullWidth>
-                    <TextField 
-                      placeholder='Titre'
-                      type='text'
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                    <TextField 
-                      placeholder='Slug'
-                      type='text'
-                      value={formatSlug()}
-                      onChange={(e) => setSlug(e.target.value)}
-                    />
-                    <TextField 
-                      placeholder='Extrait'
-                      type='text'
-                      onChange={(e) => setExcerpt(e.target.value)}
-                    />
-                    <Typography
-                      variant='h6'
-                      color='text.secondary'
-                    >
-                      Image du post
-                    </Typography>
-                    <Button variant="contained" component="label">
-                      Upload
-                      <input hidden accept="image/*" multiple type="file" onChange={(e) => handleUpload(e.target.files)}/>
-                    </Button>
+                    <FormGroup>
+                      <TextField 
+                        placeholder='Titre'
+                        type='text'
+                        onChange={(e) => setTitle(e.target.value)}
+                        sx={{ marginBottom: 2}}
+                      />
+                      <TextField 
+                        placeholder='Slug'
+                        type='text'
+                        value={formatSlug()}
+                        onChange={(e) => setSlug(e.target.value)}
+                        sx={{ marginBottom: 2}}
+                      />
+                      <TextField 
+                        placeholder='Extrait'
+                        type='text'
+                        onChange={(e) => setExcerpt(e.target.value)}
+                      />
+                    </FormGroup>
+                    {/* <Box pt={3}>
+                      <CldUploadButton
+                        className='cloudinary-btn'
+                        uploadPreset="tadamsa_expo"
+                        onUpload={handleUpload}
+                      >Télécharger une image</CldUploadButton>
+                    </Box>
                     {
                       imageUrl ?
-                      <Image src={imageUrl} width={100} height={100} alt='post image' />
+                      <CldImage src={imageUrl} width={100} height={100} alt='post image' />
                       :
                       null
-                    }
+                    } */}
                     <Tiptap setContent={editorContent}/>
                     <Button onClick={handleForm} variant='contained'> 
                       {

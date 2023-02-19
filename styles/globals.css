@@ -116,3 +116,15 @@ a {
     border-top: 2px solid rgba(#0D0D0D, 0.1);
     margin: 2rem 0;
   }
+
+  .cloudinary-btn {
+    background-color: #E42313;
+    padding: 8px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    min-width: 4.8rem;
+    height: 2.4rem;
+    font-family: Osande, Helvetica, sans-serif;
+    font-size: large;
+  }

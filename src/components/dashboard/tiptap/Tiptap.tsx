@@ -1,7 +1,7 @@
 
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
@@ -160,9 +160,12 @@ export default ({ setContent }: any) => {
     `,
   })
 
+  
+
+
   useEffect(() => {
     setContent(editor?.getJSON());
-  }, [editor?.getJSON()])
+  }, [editor?.state])
 
   return (
     <div className='editorContainer'>

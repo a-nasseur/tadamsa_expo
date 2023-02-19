@@ -87,7 +87,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
     <Banner 
       title="Contactez nous" 
       subtitle='pour toute vos questions' 
-      backgroundImage='https://images.unsplash.com/photo-1560264280-88b68371db39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+      backgroundImage='https://images.unsplash.com/photo-1560264357-8d9202250f21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
     />
 
     <Container maxWidth='lg' sx={{ marginY: 6}}>
@@ -192,7 +192,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
                 variant='subtitle2'
                 color='text.secondary'
               >
-                +213 (0) 561 62 20 22
+                +213 (0) 561 62 2022
               </Typography>  
             </ContactContainer>  
             <ContactContainer>
@@ -201,7 +201,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
                 variant='subtitle2'
                 color='text.secondary'
               >
-                +213 (0) 561 62 20 22
+                +213 (0) 561 61 2022
               </Typography>  
             </ContactContainer>  
             <ContactContainer>

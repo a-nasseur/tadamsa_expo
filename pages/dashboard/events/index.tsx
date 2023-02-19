@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { ReactElement } from 'react'
 import { NextPageWithLayout } from '../../_app'
-import { DataGrid, GridColDef, GridRowsProp, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridValueFormatterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowsProp, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridValueFormatterParams, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import LinearProgress from '@mui/material/LinearProgress';
 import { getDocs, collection } from 'firebase/firestore';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as yup from 'yup';
 
 
 import Layout from '../../../src/components/dashboard/Layout';
@@ -19,7 +18,7 @@ import Link from 'next/link';
 
 type Props = {}
 
-const Articles: NextPageWithLayout = (props: Props) => {
+const Events: NextPageWithLayout = (props: Props) => {
   // Local states
   const [rowsData, setRowsData] = useState([]);
 
@@ -27,7 +26,7 @@ const Articles: NextPageWithLayout = (props: Props) => {
   const getArticles = async () => {
 
     try{
-      const refDocs = collection(db, 'posts');
+      const refDocs = collection(db, 'events');
       const response = await getDocs(refDocs);
 
       let articles: any = [];
@@ -55,12 +54,22 @@ const Articles: NextPageWithLayout = (props: Props) => {
   // custom toolbar
   function CustomToolbar() {
     return (
-      <GridToolbarContainer>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-      </GridToolbarContainer>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: 1,
+          }}
+        >
+          <GridToolbarQuickFilter />
+          <Box>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            {/* <GridToolbarDensitySelector /> */}
+            <GridToolbarExport />
+          </Box>
+        </Box>
     );
   }
   
@@ -145,8 +154,8 @@ const Articles: NextPageWithLayout = (props: Props) => {
         </Box> 
     },
     { 
-      field: 'image', 
-      headerName: 'Thumbnail', 
+      field: 'eventBannerImage', 
+      headerName: 'image', 
       width: 100,
       renderCell: params =>
         <Box>
@@ -187,9 +196,9 @@ const Articles: NextPageWithLayout = (props: Props) => {
             variant='h5'
             fontFamily="Osande"
           >
-            Articles
+            Evènements
           </Typography>
-          <Link href={'/dashboard/articles/add-article'} passHref>
+          <Link href={'/dashboard/events/add-event'} passHref>
             <Button
               variant='contained'
               startIcon={<AddIcon />}
@@ -202,7 +211,7 @@ const Articles: NextPageWithLayout = (props: Props) => {
           sx={{
             marginTop: 4,
             width: '100%',
-            height: 620,
+            height: 400,
 
           }}
         >
@@ -223,12 +232,12 @@ const Articles: NextPageWithLayout = (props: Props) => {
 }
 
 
-Articles.getLayout = function getLayout(articles: ReactElement){
+Events.getLayout = function getLayout(events: ReactElement){
     return (
       <Layout>
-        {articles}
+        {events}
       </Layout>
     )
   }
 
-export default Articles;
+export default Events;

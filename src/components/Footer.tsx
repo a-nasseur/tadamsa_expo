@@ -1,8 +1,9 @@
 import { Box, Button, Container, FormControl, FormGroup, Grid, TextField, Typography, styled } from '@mui/material';
-import React from 'react';
+import { useState } from 'react';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
+import NewsletterForm from './NewsletterForm';
 
 
 
@@ -40,17 +41,7 @@ const Footer = (props: Props) => {
     backgroundColor: '#fff'
   }));
 
-  const NewsletterForm = () => (
-    <FormControl sx={{ marginTop: 2}}>
-      <FormGroup row>
-        <NewsletterTextField 
-          placeholder='Email'
-
-        />
-        <Button variant='contained'>Envoyer</Button>
-      </FormGroup>
-    </FormControl>
-  )
+  
 
   const ContactItems = styled(Box)(({ theme }) => ({
     marginTop: '15px',
@@ -84,11 +75,7 @@ const Footer = (props: Props) => {
                   variant='body1'
                   color='#fff'
                 >
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                  Minus a at ipsa aperiam possimus omnis magnam vel, velit assumenda 
-                  delectus aut facilis dolorem iste eaque excepturi animi error, 
-                  dolore quod.
-                </Typography>
+                  Notre objectif est d’apporter de nouvelles perspectives, des idées novatrices et une exécution impeccable à chaque projet que nous entreprenons et d’être une partie importante du progrès de la nouvelle économie émergente de l’Algérie.                </Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4} order={{ xs: 3, sm: 3, md: 2 }}>
@@ -104,7 +91,7 @@ const Footer = (props: Props) => {
                   <Typography
                     variant='subtitle2'
                   >
-                    +213 (0) 666 223 444
+                    +213 (0) 561 62 2022
                   </Typography>
                 </ContactItems>
                 <ContactItems>
@@ -112,7 +99,7 @@ const Footer = (props: Props) => {
                   <Typography
                     variant='subtitle2'
                   >
-                    +213 (0) 666 223 444
+                    +213 (0) 561 61 2022
                   </Typography>
                 </ContactItems>
                 <ContactItems>
@@ -137,9 +124,9 @@ const Footer = (props: Props) => {
                   color="#fff"
                 
                 >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.  
+                  Restez au courant de nos activités via notre newsletter. 
                 </Typography>
-                <NewsletterForm />
+                <NewsletterForm />         
             </Grid>
           </Grid>
         </Container>

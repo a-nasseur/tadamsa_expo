@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
 import logo_black from '../../public/logos/logo_black.svg';
+import mobile_logo from '../../public/logos/mobile_logo.svg';
 import Link from 'next/link';
 
 
@@ -40,11 +41,13 @@ const Navbar = (props: Props) => {
     // adding the event listener after the window object after SSR completed
     if(typeof window !== 'undefined'){
       window.addEventListener('scroll', handleScroll);
-
+ 
       return () => window.removeEventListener('scroll', handleScroll);
+
     }
     
   },[]);
+
 
   
 
@@ -58,12 +61,17 @@ const Navbar = (props: Props) => {
     {
       id: 2,
       link: '/about',
-      title: 'Qui sommes nous ?'
+      title: 'Tadamsa Expo'
     },
     {
       id: 3,
       link: '/events',
       title: 'Évènements'
+    },
+    {
+      id: 5,
+      link: '/articles',
+      title: 'Actualités'
     },
     {
       id: 4,

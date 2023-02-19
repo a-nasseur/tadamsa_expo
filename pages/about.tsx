@@ -16,11 +16,15 @@ import Banner from '../src/components/Banner';
 import BEVALG from '../public/bevalg.png';
 import ArticleCard from '../src/components/ArticleCard';
 
-import logo1 from '../public/logos/windows.png';
-import logo2 from '../public/logos/apple.png';
-import logo3 from '../public/logos/asp.png';
-import logo4 from '../public/logos/nvidia.png';
-import Link from 'next/link';
+import logo1 from '../public/logos/Agroligne.svg';
+import logo2 from '../public/logos/Filaha.svg';
+import logo3 from '../public/logos/apab.svg';
+import logo4 from '../public/logos/cba.svg';
+import logo5 from '../public/logos/entv.svg';
+import logo6 from '../public/logos/lactuel.svg';
+import logo7 from '../public/logos/ita.svg';
+import logo8 from '../public/logos/tadamsa.svg';
+import logo9 from '../public/logos/caci.svg';
 import EventCard from '../src/components/EventCard';
 import Footer from '../src/components/Footer';
 import Layout from '../src/components/Layout';
@@ -57,26 +61,30 @@ const articles = [
 const events = [
   { 
     id: 'MtbDacjSV4vsHKD10eOr',
-    image: 'https://images.unsplash.com/photo-1640914482949-b0e34060a615?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465099/expo_articles/event_o9ewln.png',
   },
   { 
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1567264401194-806d5f4b4d6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2535&q=80',
+    id: '57K1amSx2vDw85Yd2kJJ',
+    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465508/expo_articles/event2_pvuref.png',
   },
   { 
     id: 3,
-    image: 'https://images.unsplash.com/photo-1568857180654-362dbc045ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465640/expo_articles/event3_feqw8j.png',
   },
  
 ]
 
 const logos = [
   {
-    id: 1,
-    logo: logo1
+    id: 9,
+    logo: logo9
   },
   {
-    id: 2,
+    id: 5,
+    logo: logo7
+  },
+  {
+    id: 1,
     logo: logo2
   },
   {
@@ -84,24 +92,24 @@ const logos = [
     logo: logo3
   },
   {
-    id: 4,
-    logo: logo4
-  },
-  {
-    id: 5,
-    logo: logo4
-  },
-  {
     id: 6,
-    logo: logo3
+    logo: logo4
   },
   {
-    id: 7,
-    logo: logo2
+    id: 2,
+    logo: logo1
   },
   {
     id: 8,
-    logo: logo1
+    logo: logo5
+  },
+  {
+    id: 4,
+    logo: logo6
+  },
+  {
+    id: 7,
+    logo: logo8 
   },
 ]
 
@@ -216,7 +224,7 @@ const About: NextPageWithLayout = () => {
     <Banner 
       title="L'histoire derrière notre success" 
       subtitle='Qui sommes nous ?'
-      backgroundImage='https://images.unsplash.com/photo-1670272505497-d532f0b50702?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+      backgroundImage='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1768&q=80'
     />
 
   
@@ -248,8 +256,7 @@ const About: NextPageWithLayout = () => {
                       Expolorez des idées
                   </Typography>
                   <Typography variant='body2' color='text.secondary'>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam odit voluptatem ea earum, similique, magni temporibus deleniti quasi dolore vero suscipit officia? Ratione dolorum ea in aliquid dolores ullam nobis!
-                  </Typography>
+                  nous sommes toujours à la recherche d’idées novatrices et créatives pour faire ressortir nos événements. Notre équipe d’experts est constamment à la recherche des dernières tendances de l’industrie, à l’exploration de nouvelles technologies et à la réflexion sur de nouvelles façons de mobiliser nos clients et leurs clients.                  </Typography>
                 </Box>
               </Box>
           </Grid>
@@ -272,9 +279,7 @@ const About: NextPageWithLayout = () => {
                   <Typography variant='h5' fontFamily="Osande" gutterBottom>
                       Plannifier & Investir
                   </Typography>
-                  <Typography variant='body2' color='text.secondary'>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam odit voluptatem ea earum, similique, magni temporibus deleniti quasi dolore vero suscipit officia? Ratione dolorum ea in aliquid dolores ullam nobis!
-                  </Typography>
+                  <Typography variant='body2' color='text.secondary'>nous comprenons qu’une planification et une organisation adéquates sont essentielles à la réussite de tout projet. Notre équipe est déterminée à travailler en étroite collaboration avec nos clients pour comprendre leurs besoins et leurs objectifs particuliers, et nous élaborons un plan de projet complet.  </Typography>
                 </Box>
               </Box>
           </Grid>
@@ -298,8 +303,7 @@ const About: NextPageWithLayout = () => {
                       Réaliser & Célébrer
                   </Typography>
                   <Typography variant='body2' color='text.secondary'>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam odit voluptatem ea earum, similique, magni temporibus deleniti quasi dolore vero suscipit officia? Ratione dolorum ea in aliquid dolores ullam nobis!
-                  </Typography>
+                  nous sommes fiers de notre capacité de concrétiser nos idées. nous travaillons sans relâche pour nous assurer que chaque détail est parfait.Notre équipe est composée de professionnels qualifiés qui sont des experts dans leurs domaines respectifs, et nous travaillons ensemble de manière transparente pour donner vie aux visions de nos clients.                  </Typography>
                 </Box>
               </Box>
           </Grid>
@@ -309,8 +313,7 @@ const About: NextPageWithLayout = () => {
               Une ambition sans précédent
           </Typography>
           <Typography variant='body1' color="text.secondary" gutterBottom>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum unde dolore quo minus quia temporibus error, quis voluptas laudantium odio quae earum ea ratione illo molestias explicabo quisquam libero ullam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eaque perspiciatis nihil laboriosam fugiat quia blanditiis iste eius. Veritatis explicabo fuga natus perspiciatis earum quas, corrupti voluptatem reiciendis quae facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates quod saepe illo atque, porro necessitatibus eius aperiam nesciunt voluptas quae, modi unde reiciendis possimus eum facilis explicabo. Soluta, dolor!
-          </Typography>
+          Tadamsa Expo est une entreprise dynamique et innovante basée en Algérie, axée sur la contribution à la croissance et au développement de l’économie du pays. En tant qu’acteur de premier plan dans l’industrie commerciale, nous nous spécialisons dans l’organisation et la gestion de foires commerciales, d’expositions et de conférences pour des clients locaux et internationaux.</Typography>
         </Box>
       </Container>
       
@@ -326,8 +329,8 @@ const About: NextPageWithLayout = () => {
           <Typography variant='body1'  gutterBottom paddingBottom='15px'> 
               Decouvrez notre entreprise de création d'événements en Algérie, spécialisée dans l'organisation d'événements destinés à contribuer au développement économique de notre pays.
           </Typography>     
-          <Typography variant='body2' fontWeight={300}> 
-              Notre entreprise a été créée il y a [X] ans et s'est rapidement imposée sur le marché des événements grâce à notre expertise et notre engagement à offrir des expériences mémorables pour nos clients. Nous sommes fiers de notre position de leader sur le marché algérien et de notre capacité à organiser une grande variété d'événements, allant des salons professionnels aux festivals en passant par les concerts, les expositions et les événements sportifs.          
+          <Typography variant='body2' > 
+              Notre entreprise a été créée en 2021 et s'est rapidement imposée sur le marché des événements grâce à notre expertise et notre engagement à offrir des expériences mémorables pour nos clients. Nous sommes fiers de notre position de leader sur le marché algérien et de notre capacité à organiser une grande variété d'événements, allant des salons professionnels aux festivals en passant par les concerts, les expositions et les événements sportifs.          
           </Typography>     
         </Box>
       </RigthGrid>
@@ -342,8 +345,8 @@ const About: NextPageWithLayout = () => {
           <Typography variant='body1'  gutterBottom paddingBottom='15px'> 
               Notre objectif principal est de contribuer activement au développement économique de l'Algérie en organisant des événements qui génèrent des revenus pour les entreprises locales et qui attirent des visiteurs de l'extérieur de la région.
           </Typography>     
-          <Typography variant='body2' fontWeight={300}> 
-              Nous travaillons en étroite collaboration avec les entreprises algériennes pour offrir des opportunités de croissance et de développement, tout en attirant des visiteurs qui dépensent de l'argent dans le pays et en créant des emplois pour les habitants de la région.          </Typography>     
+          <Typography variant='body2' > 
+          Chez Tadamsa Expo, nous nous engageons à promouvoir la croissance économique et le développement en Algérie en fournissant une plate-forme pour les entreprises locales et internationales d’interagir et de collaborer. Notre objectif est d’être une partie importante du progrès de la nouvelle économie émergente de l’Algérie, en favorisant l’entrepreneuriat, l’innovation et l’investissement dans le pays.       </Typography>     
         </Box>
       </LeftGrid>
       <ImageGrid item xs={12} md={6} order={{xs: 1, sm: 1, md: 2}}>
@@ -413,15 +416,13 @@ const About: NextPageWithLayout = () => {
         <Typography
           variant='body1'
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium qui fuga, 
-          nisi animi accusamus quia, veritatis sunt esse tempora quaerat necessitatibus, 
-          architecto quod nostrum tempore culpa voluptas sequi? Officia, sed?
+          Nos partenaires jouent un rôle essentiel dans notre réussite, et nous apprécions leur soutien, leur expertise et leur contribution. Dans cette section, nous tenons à remercier nos précieux partenaires pour leur soutien continu et leur collaboration. en les mettant en avant
         </Typography>
-        <Grid container spacing={6} marginTop={6}>
+        <Grid container marginTop={6}>
           {
             logos.map(elem => (
-              <Grid item xs={6} md={3} key={elem.id} sx={{ position: 'relative'}}>
-                <Image src={elem.logo} alt="logo"  width={128} height={128} />
+              <Grid item xs={12} md={3} key={elem.id} sx={{ position: 'relative', textAlign: 'center'}}>
+                <Image src={elem.logo} alt="logo" />
               </Grid>
             ))
           }
@@ -439,7 +440,7 @@ const About: NextPageWithLayout = () => {
         >
           Les innovations créatives sont le moteur du progrès et de l’avancement dans tous 
           les domaines. Ce sont les idées, les solutions et les inventions qui repoussent les 
-          limites, remettent en question le statu quo et inspirent le changement.
+          limites, remettent en question le statu quo et inspirent le changement. retrouvez les évènements organiser sous la bannière de Tadamsa expo
         </Typography>
       <Grid container spacing={4} marginTop={6}>
         {
@@ -450,7 +451,6 @@ const About: NextPageWithLayout = () => {
                 id={elem.id}
               />         
           </Grid>
-
           ))
         }
       </Grid>

@@ -8,10 +8,47 @@ import { NextSeo } from 'next-seo'
 import Footer from '../../src/components/Footer'
 import Layout from '../../src/components/Layout';
 import Banner from '../../src/components/Banner'
+import { Container, Grid, Typography, styled } from '@mui/material';
+import EventCard from '../../src/components/EventCard';
 
 type Props = {}
 
 const Events: NextPageWithLayout = (props: Props) => {
+
+  // styles
+  const Title = styled(Typography)(({ theme }) => ({
+    '&keyframes slideIn': {
+      from: {opacity: 0, transform: 'translateX(-200px)'},
+      to: {opacity: 1, transform: 'translateX(0)'}
+    },
+    fontFamily: 'Osande',
+    paddingBottom: '20px',
+    '&:after': { 
+      display: 'block', 
+      marginTop: '10px', 
+      height: '4px', 
+      width: '120px', 
+      backgroundColor: 'white',
+      content: '""'
+    }
+  }));
+
+  const events = [
+    { 
+      id: 'RokzMrfk9P2t7pdx6fC0',
+      image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465099/expo_articles/event_o9ewln.png',
+    },
+    { 
+      id: '57K1amSx2vDw85Yd2kJJ',
+      image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465508/expo_articles/event2_pvuref.png',
+    },
+    { 
+      id: 3,
+      image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465640/expo_articles/event3_feqw8j.png',
+    },
+   
+  ]
+
   return (
     <>
       <NextSeo 
@@ -53,8 +90,24 @@ const Events: NextPageWithLayout = (props: Props) => {
     <Banner 
       title="Explorez nos évènements"  
       subtitle='Construisez avec nous'
-      backgroundImage='https://images.unsplash.com/photo-1544509538-ae815ae18e20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+      backgroundImage='https://res.cloudinary.com/dxiep6zjl/image/upload/v1676473032/expo_articles/safex_peoizz.webp'
     />
+
+  <Container maxWidth="lg" sx={{ marginY: 6 }}>
+    <Title variant='h3' sx={{ '&:after': {backgroundColor: 'black'}}}>Nos Évènements</Title>
+    <Grid container spacing={4} marginTop={6}>  
+    {
+      events.map(elem => (
+        <Grid item xs={12} md={4} key={elem.id}>
+          <EventCard 
+            image={elem.image}
+            id={elem.id}
+          />
+        </Grid>
+      ))
+    }
+    </Grid>
+  </Container>
 
     
     <Footer />
