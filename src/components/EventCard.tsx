@@ -3,21 +3,37 @@ import Link from 'next/link'
 import React from 'react'
 
 interface EventCardProps {
-    image?: string;
+    thumbnail?: string;
     id?: string | number;
+    published?: boolean;
 }
 
-const EventCard = ({ image, id}: EventCardProps) => {
+const EventCard = ({ thumbnail, id, published }: EventCardProps) => {
   return (
-    <Card>
-        <Link href={"/events/" + id} passHref>
-            <CardMedia
-                component="img"
-                height="450"
-                image={image}
-            />
-        </Link>
-    </Card>
+    <>
+      {
+        published &&
+        <Card>
+            <Link href={"/events/" + id} passHref>
+                <CardMedia
+                    component="img"
+                    height="450"
+                    image={thumbnail}
+                />
+            </Link>
+        </Card>
+      }
+      {
+        !published &&
+        <Card>
+          <CardMedia
+              component="img"
+              height="450"
+              image={thumbnail}
+          />
+        </Card>
+      }
+    </>
   )
 }
 

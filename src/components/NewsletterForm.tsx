@@ -2,6 +2,8 @@ import { Alert, Button, FormControl, FormGroup, IconButton, TextField, Typograph
 import { GridCloseIcon } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
+import * as Yup from 'yup';
+
 
 
 type Props = {}
@@ -11,6 +13,13 @@ const NewsletterForm = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [alert, setAlert] = useState<string>('');
   const [error, setError] = useState<string>('');
+
+
+  // Validation schema 
+  const validationSchema = Yup.object().shape({
+    email_address: Yup.string().required().email().label('Email'),
+    status: Yup.string().required()
+  })
 
   // Handlers
 
@@ -31,6 +40,13 @@ const NewsletterForm = (props: Props) => {
       status: 'pending'
     }
 
+    const valid = await validationSchema.isValid(body);
+
+    if(!valid){
+      setLoading(false);
+      return setError('Adresse email non valide');
+    }
+
     const response: any = await fetch(`http://localhost:3000/api/newsletter/register`, {
       method: 'POST',
       headers: {
@@ -45,7 +61,7 @@ const NewsletterForm = (props: Props) => {
 
     response.success ? setAlert(data.response) : setError(errorMessage)
 
-    error ? setTimeout(() => { setError('')}, 2500) : setTimeout(() => { setAlert('')}, 2500)
+    error ? setTimeout(() => { setError('')}, 2500) : alert ? setTimeout(() => { setAlert('')}, 2500) : ''
 
     setLoading(false);
 

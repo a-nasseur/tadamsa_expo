@@ -1,12 +1,24 @@
 import React from 'react';
 import { Formik } from 'formik';
 
-type Props = {}
+interface FormProps {
+  initialValues?: any;
+  children?: any
+  validationSchema?: any;
+  onSubmit?: any
+}
 
-const AppForm = (props: Props) => {
+const AppForm = ({ initialValues, children, validationSchema, onSubmit }: FormProps) => {
   return (
-    <div></div>
+    <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+    >
+        {() => (<>{children}</>)}
+
+    </Formik>
   )
 }
 
-export default AppForm
+export default AppForm;

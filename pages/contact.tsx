@@ -3,23 +3,43 @@ import Banner from '../src/components/Banner';
 import type { ReactElement } from 'react';
 import type { NextPageWithLayout } from './_app';
 import { NextSeo } from 'next-seo'
-import { Box, Button, Container, FormControl, FormGroup, FormLabel, Grid, TextField, Typography, styled } from '@mui/material'
+import { Alert, Box, Button, Container, FormControl, FormGroup, Grid, IconButton, TextField, Typography, styled } from '@mui/material'
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
+import * as Yup from 'yup';
+
+
 import Footer from '../src/components/Footer';
 import Layout from '../src/components/Layout';
+import { GridCloseIcon } from '@mui/x-data-grid';
+import { Oval } from 'react-loader-spinner';
+
 
 
 
 type Props = {}
 
 const Contact: NextPageWithLayout = (props: Props) => {
+  const [alert, setAlert] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const [fullName, setFullName] = useState();
   const [email, setEmail] = useState();
   const [company, setCompany] = useState();
   const [phone, setPhone] = useState();
   const [message, setMessage] = useState();
+
+
+   // Validation schema 
+  const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required().label('Nom et prénom'),
+    email: Yup.string().required().email().label('Email'),
+    company: Yup.string().required().label('Entreprise'),
+    phone: Yup.string().required().min(10).max(10).label('Numéro de téléphone'),
+    message: Yup.string().required().label('Message'),
+  });
+
 
 
   const ContactContainer = styled(Box)(({ theme }) => ({
@@ -45,6 +65,59 @@ const Contact: NextPageWithLayout = (props: Props) => {
     }
   }));
 
+  // Handlers
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const form = document.getElementById('contact-form')
+    
+    // update loading state 
+    setLoading(true);
+
+    // Validating input
+    const body = {
+      fullName,
+      email,
+      company,
+      phone,
+      message,
+    }
+
+    const valid = await validationSchema.isValid(body);
+
+
+    if(valid){
+      try {
+        const response: any = await fetch('http://localhost:3000/api/contact/contact-form', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+  
+       const data = await response.json();
+
+       console.log(data)
+
+       if(data.success){
+        setAlert(data.data.message);
+        form.reset();
+       }
+  
+        setLoading(false)
+        
+      } catch (error) {
+        console.log(error);
+        setError(data.data.message)
+      }
+    }
+
+    setLoading(false)
+
+
+  }
+  
 
   return (
     <>
@@ -101,7 +174,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
           >
             Nous serions ravie de vous assister
           </Title>
-          <form> 
+          <form id='contact-form'> 
             <FormControl variant='outlined' fullWidth disabled>
               <FormGroup>
                 <TextField 
@@ -148,10 +221,66 @@ const Contact: NextPageWithLayout = (props: Props) => {
                 variant='contained' 
                 size='large'
                 sx={{ marginTop: 2 }}
+                onClick={handleSubmit}
               >
-                  Envoyer
+                  {
+                    loading ?
+                    <Oval 
+                      height={22}
+                      width={22}
+                      color='#fff'
+                      secondaryColor='#fff'
+                    
+                    />
+
+                    :
+
+                    'Envoyer'
+
+                  }
               </Button>
             </Box>
+            {
+            alert && 
+            <Alert
+            sx={{ marginTop: 2 }}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setAlert('');
+                }}
+              >
+                <GridCloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {alert}
+          </Alert>
+        }
+        {
+            error && 
+            <Alert
+            sx={{ marginTop: 2 }}
+            severity='error'
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setError('');
+                }}
+              >
+                <GridCloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+           {error}
+          </Alert>
+          } 
           </form>
         </Grid>
         <Grid item xs={12} md={6}> 

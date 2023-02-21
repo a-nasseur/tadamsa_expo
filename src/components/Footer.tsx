@@ -1,5 +1,4 @@
-import { Box, Button, Container, FormControl, FormGroup, Grid, TextField, Typography, styled } from '@mui/material';
-import { useState } from 'react';
+import { Box, Container, Grid, TextField, Typography, styled } from '@mui/material';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
@@ -140,7 +139,7 @@ const Footer = (props: Props) => {
             variant='caption'
             color='#fff'
           >
-            © 2023 TADAMSA EXPO . TOUT DROIT RÉSERVÉES | +213 (0) 555-222-333 | CONTACT@TADAMSAEXPO.COM
+            © 2023 TADAMSA EXPO . TOUT DROIT RÉSERVÉES | +213 (0) 561 62 2022 | CONTACT@TADAMSAEXPO.COM
           </Typography>
         </Container>
       </Box>

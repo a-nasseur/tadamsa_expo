@@ -1,20 +1,23 @@
-import React from 'react';
+import { useEffect } from 'react';
 import type { ReactElement } from 'react';
 import type { NextPageWithLayout } from './_app';
 import { NextSeo } from 'next-seo';
-import { Box, Container, Grid, Typography, styled } from '@mui/material';
+import { Box, Card, Container, Grid, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { getDocs, collection, orderBy, limit, query  } from 'firebase/firestore';
 
 
 
 import OfficeWork from '../public/office_work.jpeg';
 import OfficeWork2 from '../public/office_work_2.jpeg';
 import Banner from '../src/components/Banner';
-import BEVALG from '../public/bevalg.png';
 import ArticleCard from '../src/components/ArticleCard';
+import { db } from '../config/firebase';
+import BEVALG from '../public/bevalg.png'
+
 
 import logo1 from '../public/logos/Agroligne.svg';
 import logo2 from '../public/logos/Filaha.svg';
@@ -28,6 +31,52 @@ import logo9 from '../public/logos/caci.svg';
 import EventCard from '../src/components/EventCard';
 import Footer from '../src/components/Footer';
 import Layout from '../src/components/Layout';
+
+
+export const getStaticProps = async (ctx: any ) => {
+  try {
+  
+  // Fetching data from firebase
+  const ref = collection(db, 'events')
+
+  const q = query(ref, orderBy("createdAt", 'desc'), limit(3));
+
+
+  // Awaiting response
+  const response = await getDocs(q);
+  
+  let data: any[] = [];
+
+  // Adding data to a mutable array
+  response.forEach(doc => {
+    const docId = doc.id
+    const newDoc = {
+      id: docId,
+      ...doc.data()
+    }
+    data.push(newDoc);
+  });
+
+  // handeling date and time and content 
+  const events = data.map(elem => {
+    elem.createdAt = new Date(elem.createdAt.seconds * 1000).toDateString();
+    elem.content ? elem.content = JSON.parse(elem.content) : null ;
+    return elem
+  });
+
+
+  return {
+    props: {
+      events,
+    }
+  }
+ 
+  // console.log("list of posts from firestore: ", querySnapshot);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+}
+
 
 
 const articles = [
@@ -114,11 +163,14 @@ const logos = [
 ]
 
 
-type Props = {}
+type Props = {
+  events?: any
+}
 
-const About: NextPageWithLayout = () => {
+const About: NextPageWithLayout = ({ events }: Props) => {
+
+
   
-
   // Styles
   const RigthGrid = styled(Grid)(({ theme }) => ({
     display: 'flex', 
@@ -192,7 +244,7 @@ const About: NextPageWithLayout = () => {
          openGraph={{
            url: 'https://www.tadamsaexpo.com',
            title: 'Tadamsa Expo',
-           description: "Ready for tommorow's Algeria",
+           description: " Ready for tommorow's Algeria",
            images: [
              {
                url: 'https://www.example.ie/og-image-01.jpg',
@@ -355,32 +407,34 @@ const About: NextPageWithLayout = () => {
     </Grid>
 
 
-
     <Container maxWidth='lg' sx={{ marginTop: 14 }}>
-      <AboutTitle
-        variant='h3'
-        sx={{ '&:after': {backgroundColor: 'black'}}}
-        
-      >
-        Actualité événementiel
+      <AboutTitle variant='h3' sx={{ '&:after': { backgroundColor: '#000' }}}>
+        Création & innovation
       </AboutTitle>
-      <Grid container spacing={4} marginTop={3}>
+      <Typography
+          variant='body1'
+          color='text.secondary'
+        >
+          Les innovations créatives sont le moteur du progrès et de l’avancement dans tous 
+          les domaines. Ce sont les idées, les solutions et les inventions qui repoussent les 
+          limites, remettent en question le statu quo et inspirent le changement. retrouvez les évènements organiser sous la bannière de Tadamsa expo
+        </Typography>
+      <Grid container spacing={4} marginTop={6}>
         {
-          articles.map(elem => (
+          events.map((elem: any, index: any) => (
           <Grid item xs={12} md={4} key={elem.id}>
-            <ArticleCard  
-              id={elem.id.toString()}
-              title={elem.title}
-              image={elem.image}
-              alt={elem.alt}
-              date={elem.date}
-              excerpt={elem.excerpt}
-            />
+              <EventCard 
+                thumbnail={elem.thumbnail}
+                id={elem.id}
+                published={elem.published}
+              />         
           </Grid>
           ))
         }
       </Grid>
     </Container>
+
+   
 
 
      {/* <Box sx={{ marginTop: '100px'}} >
@@ -431,31 +485,32 @@ const About: NextPageWithLayout = () => {
     </Box>
 
     <Container maxWidth='lg' sx={{ marginTop: 14 }}>
-      <AboutTitle variant='h3' sx={{ '&:after': { backgroundColor: '#000' }}}>
-        Création innovative
+      <AboutTitle
+        variant='h3'
+        sx={{ '&:after': {backgroundColor: 'black'}}}
+        
+      >
+        Actualité événementiel
       </AboutTitle>
-      <Typography
-          variant='body1'
-          color='text.secondary'
-        >
-          Les innovations créatives sont le moteur du progrès et de l’avancement dans tous 
-          les domaines. Ce sont les idées, les solutions et les inventions qui repoussent les 
-          limites, remettent en question le statu quo et inspirent le changement. retrouvez les évènements organiser sous la bannière de Tadamsa expo
-        </Typography>
-      <Grid container spacing={4} marginTop={6}>
+      <Grid container spacing={4} marginTop={3}>
         {
-          events.map((elem, index) => (
+          articles.map(elem => (
           <Grid item xs={12} md={4} key={elem.id}>
-              <EventCard 
-                image={elem.image}
-                id={elem.id}
-              />         
+            <ArticleCard  
+              id={elem.id.toString()}
+              title={elem.title}
+              image={elem.image}
+              alt={elem.alt}
+              date={elem.date}
+              excerpt={elem.excerpt}
+            />
           </Grid>
           ))
         }
       </Grid>
     </Container>
 
+    
     <Footer />
 
 

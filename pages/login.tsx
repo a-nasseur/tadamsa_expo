@@ -25,8 +25,25 @@ const login = (props: Props) => {
   // initializing router
   const router = useRouter();
 
+  // Setting cookie function to collect value when using middleware
+  const setCookie = (name: any,value: any,days: any) => {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+        if(typeof window !== 'undefined'){
+          if(user){
+            let cookie = user?.email
+            setCookie('user', cookie, 2)
+          } 
+        }
         user ? router.replace('/dashboard') : setLoading(false);
     });
 
