@@ -1,20 +1,17 @@
 import { Button, Card, CardContent, Container, FormControl, FormGroup, TextField, Typography, styled } from '@mui/material'
-import React from 'react'
+import React from 'react';
 
 type Props = {
     onClick?: any
 }
 
 const LoginForm = ({ onClick }: Props) => {
+  // Loading
+
+
   // local state
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
-
-    
-  const CustomTextField = styled(TextField)(({ theme }) => ({
-    backgroundColor: '#fff',
-    marginBottom: '15px'
-  }));
 
 
   return (
@@ -32,21 +29,23 @@ const LoginForm = ({ onClick }: Props) => {
                     Connection
                 </Typography>
                 <form>
-                    <FormControl>
+                    <FormControl fullWidth sx={{ padding: 4 }}>
                         <FormGroup>
                             <TextField 
                                 placeholder='Email'
                                 type="text"
-                                onChange={(e: any) => setEmail(e.target.value)}                       
+                                onChange={(e: any) => setEmail(e.target.value)} 
+                                sx={{ backgroundColor: '#fff', marginBottom: 2}}                      
                             />
                             <TextField 
                                 placeholder='Mot de passe'
                                 type="password"
-                                onChange={(e: any) => setPassword(e.target.value)}         
+                                onChange={(e: any) => setPassword(e.target.value)}     
+                                sx={{ backgroundColor: '#fff', marginBottom: 2}}                          
                             />
                         </FormGroup>
                         <Button variant='contained' size='large' onClick={() => onClick(email, password)}>
-                            Connection
+                           Connection
                         </Button>
                     </FormControl>  
                 </form>

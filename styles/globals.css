@@ -30,3 +30,101 @@ a {
   object-fit: cover;
 
 }
+
+
+/* Editor */
+
+/* Basic editor styles */
+
+
+.editorContainer {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 30px 0px 30px 0px; 
+  width: 100%;
+}
+
+.editorContainer button {
+  background-color: #fff;
+  margin: 1px
+}
+
+.toolbar {
+  padding: 10px;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ProseMirror {
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  min-height: 200px
+  
+}
+
+.ProseMirror > * + * {
+    margin-top: 0.75em;
+  }
+
+  .ProseMirror ul,
+  .ProseMirror ol {
+    padding: 0 1rem;
+  }
+
+  .ProseMirror h1,
+  .ProseMirror h2,
+  .ProseMirror h3,
+  .ProseMirror h4,
+  .ProseMirror h5,
+  .ProseMirror h6 {
+    line-height: 1.1;
+  }
+
+  .ProseMirror code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  .ProseMirror pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+  }
+  .ProseMirror pre code {
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+
+    .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ProseMirror blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
+
+  .ProseMirror hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+
+  .cloudinary-btn {
+    background-color: #E42313;
+    padding: 8px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    min-width: 4.8rem;
+    height: 2.4rem;
+    font-family: Osande, Helvetica, sans-serif;
+    font-size: large;
+  }

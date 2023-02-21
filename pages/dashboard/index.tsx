@@ -4,14 +4,19 @@ import { useRouter } from 'next/router';
 import { Box, Container, Typography, styled } from '@mui/material';
 import { NextSeo } from 'next-seo';
 import { Oval } from 'react-loader-spinner';
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from '../_app';
+import { getDocs, collection } from 'firebase/firestore';
 
-import { auth } from '../config/firebase';
+import Layout from '../../src/components/dashboard/Layout';
+import { auth, db } from '../../config/firebase';
 
 type Props = {}
 
-const dashboard = (props: Props) => {
+const Dashboard: NextPageWithLayout = (props: Props) => {
   // local states
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [data, setData] = React.useState<any>();
 
   // initializing router
   const router = useRouter();
@@ -20,8 +25,10 @@ const dashboard = (props: Props) => {
   const handleRedirect = () => {
     setTimeout(() =>  {
       router.push('/login');
-    }, 5000);  
-  }
+    }, 
+    5000
+  );  
+}
 
   // Styles
   const DashboardContainer = styled(Container)(({ theme }) => ({
@@ -45,9 +52,15 @@ const dashboard = (props: Props) => {
   }));
 
 
+
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      user ? setLoading(false) : setLoading(true);
+        if(user){
+          console.log(user.uid);
+          setLoading(false);
+      } else {
+        router.replace('/login')
+      }
     });
 
 
@@ -56,10 +69,10 @@ const dashboard = (props: Props) => {
   return (
     <>
        <NextSeo
-            title="Tadamsa Expo | Dashboard"
-            description="Console d'adminstration"
-            canonical="https://tadamsaexpo.com"
-            openGraph={{
+          title="Tadamsa Expo | Dashboard"
+          description="Console d'adminstration"
+          canonical="https://tadamsaexpo.com"
+          openGraph={{
             url: 'https://www.tadamsaexpo.com',
             title: 'Tadamsa Expo',
             description: "Ready for tommorow's Algeria",
@@ -82,47 +95,38 @@ const dashboard = (props: Props) => {
                 { url: 'https://www.example.ie/og-image-04.jpg' },
             ],
             siteName: 'SiteName',
-            }}
-            twitter={{
+          }}
+          twitter={{
             handle: '@handle',
             site: '@site',
             cardType: 'summary_large_image',
-            }}
-       
-      />
+          }}    
+        />
 
       <DashboardContainer maxWidth='lg'>
           <RedirectionContainer>
              {
                 !loading &&
-            
-                <Typography
-                  variant='h3'
+            <>
+              <Typography
+                variant='h3'
 
-                >
-                  Dashboard
-                </Typography>
-          
+              >
+                Dashboard
+              </Typography>
+            </>
               }
 
               {
                 loading &&
-                <Box>
-                  <Typography
-                    variant='h3'
-                    fontFamily="Osande"
-                    fontWeight={700}
 
-                  >
-                    Vous devez etre connecter pour acceder a ce contenu 
-                  </Typography>
-                  <Typography
-                    variant='h6'
-                  >
-                   vous aller etre rediriger vers la page de connection
-                  </Typography>
+                <Oval 
+                  height={42}
+                  width={42}
+                  color='#fff'
+                  secondaryColor='#fff'
+                /> 
 
-                </Box>
               }
           </RedirectionContainer>
         </DashboardContainer>
@@ -131,4 +135,13 @@ const dashboard = (props: Props) => {
   )
 }
 
-export default dashboard
+
+Dashboard.getLayout = function getLayout(dashboard: ReactElement){
+  return (
+    <Layout>
+      {dashboard}
+    </Layout>
+  )
+}
+
+export default Dashboard;

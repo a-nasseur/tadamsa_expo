@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../_app';
 import Banner from '../../src/components/Banner';
@@ -31,15 +31,26 @@ type Props = {
 
 export const getStaticProps = async (ctx: any ) => {
     try {
+    
+    // Fetching data from firebase
     const ref = doc(db, 'events', ctx.params.id)
+
+    // Awaiting response
     const response = await getDoc(ref);
     
-    const event = response.data();
+    // Handling timestamp
+    const createdAt = response.data()?.createdAt.seconds * 1000;
 
+    // setting up data object
+    let event: any = response.data();
+
+    event.createdAt = createdAt;
+    
+    
 
     return {
       props: {
-        event
+        event,
       }
     }
    
@@ -75,13 +86,29 @@ export const getStaticPaths = async (ctx: NextPageContext) => {
   console.log(error);
  }
  
-   
-
 }
 
 
 
 const EventSingle: NextPageWithLayout = ({ event }: Props) => {
+  // Local states
+  const [content, setContent] = useState<any>();
+
+  // Handlers
+
+  // Content handler
+  const handleContent = async (content: any) => {
+    const response = JSON.parse(content);
+    setContent(response.content);
+  
+  };
+
+  useEffect(() => {
+    handleContent(event.content);
+    console.log(content);
+  }, [])
+
+
 
 
   const Title = styled(Typography)(({ theme }) => ({
@@ -123,7 +150,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
   return (
     <>
         <NextSeo
-         title={`Tadamsa Expo | ${event.eventTitle}`} 
+         title={`Tadamsa Expo | ${event.title}`} 
          description={event.eventSubtitle}
          canonical="https://tadamsaexpo.com"
          openGraph={{
@@ -159,38 +186,104 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
     />
 
       <Banner 
-        title={event.eventTitle}
-        subtitle={event.eventSubtitle}
+        title={event.title}
+        subtitle={event.subtitle}
         backgroundImage={event.eventBannerImage}
       />
 
       <Container maxWidth="lg" sx={{ marginY: 10 }}>
         <Grid container spacing={3}>
             <Grid item xs={12} md={8} sx={{ position: 'relative'}}>
-              <Image src={bevalg} alt="event image"  className={styles.image}/>
+              {/* <Image src={event.eventImage} alt="event image" className={styles.image}/> */}
               <Box marginTop={4}>
                 <Title
                     variant='h4' 
                     sx={{ '&:after': { backgroundColor: 'black'}}}
                     gutterBottom
                 >
-                    {event.eventSubtitle}
+                    {event.subtitle}
                 </Title>
-                <Typography
-                    variant='body1'
-                    gutterBottom
-
-                >
-                    {event.excerpt}
-                </Typography>
                 <Typography
                     variant='body1'
                     color='text.secondary'
                     gutterBottom
 
                 >
-                    {event.description}
+                    {event.excerpt}
                 </Typography>
+               
+
+                <Box sx={{ paddingY: 4}}>
+                {
+                  content && content.length &&
+                  content.map((elem: any) => (
+                    elem.type == 'heading' ? 
+                    <Typography
+                      variant='h3'
+                      fontWeight={700}
+                    >
+                      {elem.content[0].text}
+                    </Typography>
+                    :
+                    elem.type == 'paragraph' ?
+                    elem.content?.map((elem: any) => 
+                      elem.marks ?
+                      elem.marks?.map((mark: any) => (
+                        <Typography
+                          variant='body1'
+                          paddingBottom={1}
+                          fontWeight={mark.type == 'bold' ? 700 : ''}
+                          fontStyle={mark.type == 'italic' ? 'italic': ''}
+
+                        >
+                          {elem.text}
+                        </Typography>
+                      ))
+                      :
+                      <Typography
+                        variant='body1'
+                        color='text.secondary'
+                        paddingBottom={1}
+                      >
+                         {elem.text}
+                      </Typography>
+                    )
+                    :
+                    elem.type == 'bulletList' ? 
+                    <Box component='ul'>
+                      {
+                        elem.content?.map((elem: any) => (
+                          elem.content?.map((elem: any) => (
+                            elem.content?.map((elem: any) => (
+                              <Box component='li'>
+                                {elem.text}
+                              </Box>
+                            ))
+                          ))
+                        ))
+                      }
+                    </Box>
+                    :
+                    elem.type == 'blockquote' ? 
+                    elem.content?.map((elem: any) => (
+                      elem.content?.map(((elem: any) => (
+                        <Typography
+                          variant='body1'
+                          fontStyle='italic'
+                          paddingLeft={4}
+                          marginLeft={4}
+                          marginTop={3}
+                          sx={{ borderLeft: '4px solid gray'}}
+                        >
+                          {elem.text}
+                        </Typography>
+                      )))
+                    ))
+                    :
+                    null
+                  ))
+                }
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -207,7 +300,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
                         color="text.secondary"
                         fontWeight={300}
                     >
-                        {event.sidebarExcerpt}
+                        {event.sideBarExcerpt}
                     </Typography>   
 
                  
@@ -276,7 +369,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
                               variant='subtitle2'
                               color='text.secondary'
                             >
-                               {event.contact.phone}
+                               {event.contacts.phoneNumber}
                             </Typography>
                         </ContactContainer>
                         <ContactContainer>
@@ -285,7 +378,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
                               variant='subtitle2'
                               color='text.secondary'
                             >
-                                {event.contact.whatsapp}
+                                {event.contacts.whatsApp}
                             </Typography>
                         </ContactContainer>
                         <ContactContainer>
@@ -294,7 +387,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
                               variant='subtitle2'
                               color='text.secondary'
                             >
-                                {event.contact.email}
+                                {event.contacts.email}
                             </Typography>
                         </ContactContainer>
                     </Box>

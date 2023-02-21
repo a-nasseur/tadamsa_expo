@@ -41,16 +41,15 @@ const Header = (props: Props) => {
 
   const HeaderTitle = styled(Typography)(({ theme }) => ({
     '@keyframes zoomIn': {
-      from: { transform: 'scale(.9)' },
-      to: { transform: 'scale(1)', letterSpacing: '5px'}
+      from: { transform: 'scale(.96)', opacity: 0 },
+      to: { transform: 'scale(1)', letterSpacing: '5px', opacity: 1}
     },
-    animation: 'zoomIn linear 4s forwards',
+    animation: 'zoomIn linear 2s forwards',
     fontFamily: 'osande',
     color: 'white',
     fontWeight: 700,
-    overflow: 'hidden', 
-    whiteSpace: 'nowrap',
     margin: '0 auto',
+    width: 'fit-content'
     
     // letterSpacing: '.15em',
   }));
@@ -73,7 +72,7 @@ const Header = (props: Props) => {
             <TitleContainer>
               <TitleBackground>
                 <HeaderTitle variant='h3'>
-                  Building the future together
+                  Where innovation meets opportunity
                 </HeaderTitle>
               </TitleBackground>
             </TitleContainer>

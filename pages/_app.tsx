@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 
+
 // Custom components imports
 import '../config/firebase';
 import theme from '../src/theme/theme';
