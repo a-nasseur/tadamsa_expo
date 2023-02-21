@@ -2,8 +2,8 @@ import { Typography } from '@mui/material'
 import React from 'react'
 
 interface ErrorMessageProps {
-    error?: string;
-    visible?: boolean;
+    error?: any;
+    visible?: any;
 }
 
 const ErrorMessage = ({ error, visible}: ErrorMessageProps) => {

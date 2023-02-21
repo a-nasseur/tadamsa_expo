@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 
 
 interface FormFieldProps {
-    name?: string;
+    name?: any;
 }
 
 
