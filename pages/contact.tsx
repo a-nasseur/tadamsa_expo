@@ -69,7 +69,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const form = document.getElementById('contact-form')
+    const form: any = document.getElementById('contact-form')
     
     // update loading state 
     setLoading(true);
@@ -107,9 +107,9 @@ const Contact: NextPageWithLayout = (props: Props) => {
   
         setLoading(false)
         
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
-        setError(data.data.message)
+        setError(error.message)
       }
     }
 

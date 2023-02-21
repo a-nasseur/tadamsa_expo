@@ -1,4 +1,4 @@
-import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, styled, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Drawer, IconButton, List, ListItem, styled, Toolbar, Typography } from '@mui/material'
 import Image from 'next/image';
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -33,7 +33,7 @@ const Navbar = (props: Props) => {
     // Conditionnaly adding background depending on the banner's height
     y >= bannerHeight ? appbar.style.backgroundColor = '#000' :  appbar.style.backgroundColor = 'transparent'
     
-  }, [])
+  }, []);
 
 
 
@@ -143,7 +143,6 @@ const Navbar = (props: Props) => {
   }));
 
 
-
   return (
     <>
       <AppBar color='transparent' elevation={0} id="appbar" sx={{ transition: 'background-color .2s ease'}}>
@@ -157,15 +156,16 @@ const Navbar = (props: Props) => {
             />
           </Link>
           <CustomListContainer>
-            {menuItems.map(elem => (
-              <React.Fragment key={elem.id}>
-                <Link href={elem.link} passHref>
-                  <MenuItem variant='h6'>
-                    {elem.title}
-                  </MenuItem>
-                </Link>
-              </React.Fragment>
-            ))
+            {
+              menuItems.map(elem => (
+                <React.Fragment key={elem.id}>
+                  <Link href={elem.link} passHref>
+                    <MenuItem variant='h6'>
+                      {elem.title}
+                    </MenuItem>
+                  </Link>
+                </React.Fragment>
+              ))
             }
           </CustomListContainer>
           <DrawerIconContainer
