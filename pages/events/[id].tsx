@@ -218,7 +218,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
 
                 <Box sx={{ paddingY: 4}}>
                 {
-                  content && content.length &&
+                  content && 
                   content.map((elem: any) => (
                     elem.type == 'heading' ? 
                     <Typography
