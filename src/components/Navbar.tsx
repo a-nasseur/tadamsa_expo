@@ -68,11 +68,11 @@ const Navbar = (props: Props) => {
       link: '/events',
       title: 'Évènements'
     },
-    {
-      id: 5,
-      link: '/articles',
-      title: 'Actualités'
-    },
+    // {
+    //   id: 5,
+    //   link: '/articles',
+    //   title: 'Actualités'
+    // },
     {
       id: 4,
       link: '/contact',

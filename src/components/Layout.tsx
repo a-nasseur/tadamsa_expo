@@ -9,7 +9,7 @@ function Layout({ children }: GlobalProps) {
   return (
    <>
     <Navbar />
-       <main>{children}</main> 
+      <main>{children}</main> 
     
    </>
   )

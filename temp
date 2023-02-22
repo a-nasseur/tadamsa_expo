@@ -8,7 +8,7 @@ import { NextSeo } from 'next-seo'
 import Footer from '../../src/components/Footer'
 import Layout from '../../src/components/Layout';
 import Banner from '../../src/components/Banner'
-import { Box, Container, Grid, Typography, styled } from '@mui/material';
+import { Container, Grid, Typography, styled } from '@mui/material';
 import ArticleCardPrimary from '../../src/components/ArticleCardPrimary';
 
 type Props = {}
@@ -115,7 +115,6 @@ const Articles: NextPageWithLayout = (props: Props) => {
   useEffect(() => {
     // Filtering artciles on components first mount
     extractFeaturedArticle(articles);
-
   }, []);
 
 

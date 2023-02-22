@@ -193,7 +193,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
 
 
       {
-        event && 
+        event && event.published &&
         <Container maxWidth="lg" sx={{ marginY: 10 }}>
         <Grid container spacing={3}>
             <Grid item xs={12} md={8} sx={{ position: 'relative'}}>
@@ -430,9 +430,9 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
       </Container>
       }
       {
-        !event &&
+        event && !event.published &&
 
-        <Container maxWidth='xl' sx={{ marginTop: 100}}>
+        <Container maxWidth='xl' sx={{ padding: 4}}>
           <Typography
             variant='h3'
 

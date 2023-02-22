@@ -35,41 +35,69 @@ import Layout from '../src/components/Layout';
 
 export const getStaticProps = async (ctx: any ) => {
   try {
-  
-  // Fetching data from firebase
-  const ref = collection(db, 'events')
+    // Fetching data from firebase
+    const ref = collection(db, 'events');
 
-  const q = query(ref, orderBy("createdAt", 'desc'), limit(3));
+    const q = query(ref, orderBy("createdAt", 'desc'), limit(3));
+
+    // Awaiting response
+    const response = await getDocs(q);
+    
+    let data: any[] = [];
+
+    // Adding data to a mutable array
+    response.forEach(doc => {
+      const docId = doc.id
+      const newDoc = {
+        id: docId,
+        ...doc.data()
+      }
+      data.push(newDoc);
+    });
+
+    // handeling date and time and content 
+    const events = data.map(elem => {
+      elem.createdAt = new Date(elem.createdAt.seconds * 1000).toDateString();
+      elem.content ? elem.content = JSON.parse(elem.content) : null ;
+      return elem
+    });
+
+      // Fetching data from firebase
+      const postsRef = collection(db, 'events');
+
+      // Query
+      const postsQ = query(ref, orderBy("createdAt", 'desc'), limit(3));
+   
+      // Awaiting response
+      const postsResponse = await getDocs(q);
+
+      let postsData: any[] = [];
 
 
-  // Awaiting response
-  const response = await getDocs(q);
-  
-  let data: any[] = [];
+      // Adding data to a mutable array
+      postsResponse.forEach(doc => {
+        const docId = doc.id
+        const newDoc = {
+          id: docId,
+          ...doc.data()
+        }
+        postsData.push(newDoc);
+      });
 
-  // Adding data to a mutable array
-  response.forEach(doc => {
-    const docId = doc.id
-    const newDoc = {
-      id: docId,
-      ...doc.data()
+      // handeling date and time and content 
+      const articles = postsData.map(elem => {
+        elem.createdAt = new Date(elem.createdAt.seconds * 1000).toDateString();
+        elem.content ? elem.content = JSON.parse(elem.content) : null ;
+        return elem
+      });
+
+
+    return {
+      props: {
+        events,
+        articles,
+      }
     }
-    data.push(newDoc);
-  });
-
-  // handeling date and time and content 
-  const events = data.map(elem => {
-    elem.createdAt = new Date(elem.createdAt.seconds * 1000).toDateString();
-    elem.content ? elem.content = JSON.parse(elem.content) : null ;
-    return elem
-  });
-
-
-  return {
-    props: {
-      events,
-    }
-  }
  
   // console.log("list of posts from firestore: ", querySnapshot);
 } catch (e) {
@@ -79,49 +107,49 @@ export const getStaticProps = async (ctx: any ) => {
 
 
 
-const articles = [
-  { 
-    id: '8ep4mnkC4eGJ978buSdg',
-    title: 'Les congrès et les salons repartent très fort en présentiel',
-    image: 'https://images.unsplash.com/photo-1525402456151-11e51fa1b2f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1698&q=80',
-    alt: 'Hall d"exhibition',
-    date: '03 Janvier 2022',
-    excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
-  },
-  { 
-    id: 'e5FnrdC5STs2z2DOn4wF',
-    title: 'GL Events: de nouveaux appels d’offres remportés',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-    alt: 'Conference',
-    date: '03 Janvier 2022',
-    excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
-  },
-  { 
-    id: 3,
-    title: 'Le retour de l’événementiel plombé par les pénuries',
-    image: 'https://images.unsplash.com/photo-1601903060992-09a591e36f1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1712&q=80',
-    alt: 'Penurie',
-    date: '03 Janvier 2022',
-    excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
-  },
-]
+// const articles = [
+//   { 
+//     id: '8ep4mnkC4eGJ978buSdg',
+//     title: 'Les congrès et les salons repartent très fort en présentiel',
+//     image: 'https://images.unsplash.com/photo-1525402456151-11e51fa1b2f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1698&q=80',
+//     alt: 'Hall d"exhibition',
+//     date: '03 Janvier 2022',
+//     excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
+//   },
+//   { 
+//     id: 'e5FnrdC5STs2z2DOn4wF',
+//     title: 'GL Events: de nouveaux appels d’offres remportés',
+//     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+//     alt: 'Conference',
+//     date: '03 Janvier 2022',
+//     excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
+//   },
+//   { 
+//     id: 3,
+//     title: 'Le retour de l’événementiel plombé par les pénuries',
+//     image: 'https://images.unsplash.com/photo-1601903060992-09a591e36f1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1712&q=80',
+//     alt: 'Penurie',
+//     date: '03 Janvier 2022',
+//     excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis placeat consequuntur maiores sapiente, eum repudiandae ab earum eius recusandae, autem nihil eligendi ea! Nemo quod sapiente, animi fugiat suscipit mollitia?'
+//   },
+// ]
 
 
-const events = [
-  { 
-    id: 'MtbDacjSV4vsHKD10eOr',
-    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465099/expo_articles/event_o9ewln.png',
-  },
-  { 
-    id: '57K1amSx2vDw85Yd2kJJ',
-    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465508/expo_articles/event2_pvuref.png',
-  },
-  { 
-    id: 3,
-    image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465640/expo_articles/event3_feqw8j.png',
-  },
+// const events = [
+//   { 
+//     id: 'MtbDacjSV4vsHKD10eOr',
+//     image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465099/expo_articles/event_o9ewln.png',
+//   },
+//   { 
+//     id: '57K1amSx2vDw85Yd2kJJ',
+//     image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465508/expo_articles/event2_pvuref.png',
+//   },
+//   { 
+//     id: 3,
+//     image: 'https://res.cloudinary.com/dxiep6zjl/image/upload/v1676465640/expo_articles/event3_feqw8j.png',
+//   },
  
-]
+// ]
 
 const logos = [
   {
@@ -165,9 +193,10 @@ const logos = [
 
 type Props = {
   events?: any
+  articles?: any
 }
 
-const About: NextPageWithLayout = ({ events }: Props) => {
+const About: NextPageWithLayout = ({ events, articles }: Props) => {
 
 
   
@@ -484,7 +513,7 @@ const About: NextPageWithLayout = ({ events }: Props) => {
       </Container>
     </Box>
 
-    <Container maxWidth='lg' sx={{ marginTop: 14 }}>
+    {/* <Container maxWidth='lg' sx={{ marginTop: 14 }}>
       <AboutTitle
         variant='h3'
         sx={{ '&:after': {backgroundColor: 'black'}}}
@@ -494,7 +523,7 @@ const About: NextPageWithLayout = ({ events }: Props) => {
       </AboutTitle>
       <Grid container spacing={4} marginTop={3}>
         {
-          articles.map(elem => (
+          articles.map((elem: any) => (
           <Grid item xs={12} md={4} key={elem.id}>
             <ArticleCard  
               id={elem.id.toString()}
@@ -508,7 +537,7 @@ const About: NextPageWithLayout = ({ events }: Props) => {
           ))
         }
       </Grid>
-    </Container>
+    </Container> */}
 
     
     <Footer />
