@@ -88,7 +88,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
 
     if(valid){
       try {
-        const response: any = await fetch('http://localhost:3000/api/contact/contact-form', {
+        const response: any = await fetch('https://tamdasaexpo.com/api/contact/contact-form', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
