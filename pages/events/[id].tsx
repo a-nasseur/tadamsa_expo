@@ -339,7 +339,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
                     >
                         Siteweb officiel
                     </Title>
-                    <Link href={event.website.link} passHref target='_blank'>
+                    <Link href={event.website.link ? event.website.link : "#"} passHref target='_blank'>
                         <Typography
                             variant='body1'
                             fontFamily="Osande"
