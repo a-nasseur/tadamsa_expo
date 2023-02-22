@@ -117,39 +117,57 @@ const Article: NextPageWithLayout = ({ post }: Props) => {
             backgroundImage={post.image}
         />
 
+          
+          {
+            post &&
 
-        <Container maxWidth='md' sx={{ marginTop: 6, textJustify: 'auto' }}>
-            <Typography
-              variant='h2'
-              fontFamily="Osande"
-            >
-              {post.title}
-            </Typography>
-            <Typography
-              variant='h6'
-              fontFamily="Osande"
+            <Container maxWidth='md' sx={{ marginTop: 6, textJustify: 'auto' }}>
+                <Typography
+                  variant='h2'
+                  fontFamily="Osande"
+                >
+                  {post.title}
+                </Typography>
+                <Typography
+                  variant='h6'
+                  fontFamily="Osande"
 
-            >
-             {new Date(post.date).toDateString()}
-            </Typography>
-            <Typography
-              variant='body2'
-              color='text.secondary'
-              paddingY={4}
-            >
-              {post.excerpt}
-            </Typography>
-            <Typography
-              variant='body1'
-              color='text.secondary'
-              gutterBottom
+                >
+                {new Date(post.date).toDateString()}
+                </Typography>
+                <Typography
+                  variant='body2'
+                  color='text.secondary'
+                  paddingY={4}
+                >
+                  {post.excerpt}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  color='text.secondary'
+                  gutterBottom
 
 
-            >
-              {post.content}
-            </Typography>
-      
-        </Container>
+                >
+                  {post.content}
+                </Typography>
+          
+            </Container>
+          }
+          {
+            !post &&
+
+            <Container maxWidth='xl' sx={{ marginTop: 100}}>
+              <Typography
+                variant='h3'
+
+              >
+                Information bientôt disponible
+              </Typography>  
+            </Container>
+          }
+
+
 
         <Footer />
     </>

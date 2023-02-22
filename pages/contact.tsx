@@ -98,17 +98,19 @@ const Contact: NextPageWithLayout = (props: Props) => {
   
        const data = await response.json();
 
-       console.log(data)
+       console.log(data.data.message)
 
        if(data.success){
         setAlert(data.data.message);
         form.reset();
        }
+
+       setError(data.data.message)
   
         setLoading(false)
         
       } catch (error: any) {
-        console.log(error);
+        console.log(error.data.message);
         setError(error.message)
       }
     }

@@ -72,7 +72,7 @@ const Header = (props: Props) => {
             <TitleContainer>
               <TitleBackground>
                 <HeaderTitle variant='h3'>
-                  Where innovation meets opportunity
+                  Ready for tommorow's Algeria
                 </HeaderTitle>
               </TitleBackground>
             </TitleContainer>

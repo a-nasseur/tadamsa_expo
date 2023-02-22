@@ -150,7 +150,7 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
   return (
     <>
         <NextSeo
-         title={`Tadamsa Expo | ${event.title}`} 
+         title={`Tadamsa Expo | ${event.title ? event.title : 'Comming soon'}`} 
          description={event.eventSubtitle}
          canonical="https://tadamsaexpo.com"
          openGraph={{
@@ -191,7 +191,10 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
         backgroundImage={event.eventBannerImage}
       />
 
-      <Container maxWidth="lg" sx={{ marginY: 10 }}>
+
+      {
+        event && 
+        <Container maxWidth="lg" sx={{ marginY: 10 }}>
         <Grid container spacing={3}>
             <Grid item xs={12} md={8} sx={{ position: 'relative'}}>
               {/* <Image src={event.eventImage} alt="event image" className={styles.image}/> */}
@@ -425,6 +428,21 @@ const EventSingle: NextPageWithLayout = ({ event }: Props) => {
             </Grid>
         </Grid>
       </Container>
+      }
+      {
+        !event &&
+
+        <Container maxWidth='xl' sx={{ marginTop: 100}}>
+          <Typography
+            variant='h3'
+
+          >
+            Information bientôt disponible
+          </Typography>  
+        </Container>
+      }
+
+     
 
 
     </>
