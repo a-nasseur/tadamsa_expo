@@ -2,11 +2,10 @@
   "name": "tadamsa_expo",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  "scripts": {                         
+    "dev": "next",                         
+    "build": "next build",                           
+    "start": "NODE_ENV=production node server.ts"                         
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

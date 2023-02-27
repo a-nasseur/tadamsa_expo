@@ -73,7 +73,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
   }));
 
   // Handlers
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: FormValues) => {
     // e.preventDefault();
     
     // update loading state 
@@ -100,7 +100,6 @@ const Contact: NextPageWithLayout = (props: Props) => {
        if(!data.success){
          setError(data.data.message)
          setLoading(false)
-
        }
   
         
@@ -176,7 +175,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
                 message: ''
               }}
               validationSchema={validationSchema}
-              onSubmit={(values: any) => handleSubmit(values)}
+              onSubmit={(values: FormValues) => handleSubmit(values)}
             >  
             <FormControl fullWidth>
               <AppFormField 
