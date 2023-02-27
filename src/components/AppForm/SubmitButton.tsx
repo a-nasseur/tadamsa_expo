@@ -3,21 +3,21 @@ import { useFormikContext } from 'formik';
 import { Button } from '@mui/material';
 
 interface SubmitButtonProps {
-    title?: string;
+    title?: any;
 }
 
 const SubmitButton = ({ title, ...otherProps }: SubmitButtonProps) => {
   const { handleSubmit } =  useFormikContext<any>();
 
   return (
-    // <Button
-    //   variant='contained'
-    //   onClick={handleSubmit}
-    //   {...otherProps}
-    // >
-    //     {title}
-    // </Button>
-    <></>
+    <Button
+      component='button'
+      variant='contained'
+      onClick={handleSubmit}
+      {...otherProps}
+    >
+        {title}
+    </Button>
   )
 }
 

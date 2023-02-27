@@ -3,44 +3,52 @@ import Banner from '../src/components/Banner';
 import type { ReactElement } from 'react';
 import type { NextPageWithLayout } from './_app';
 import { NextSeo } from 'next-seo'
-import { Alert, Box, Button, Container, FormControl, FormGroup, Grid, IconButton, TextField, Typography, styled } from '@mui/material'
+import { Alert, Box, Container, FormControl, Grid, IconButton, Typography, styled } from '@mui/material'
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 import * as Yup from 'yup';
+import { fr } from 'yup-locales';
 
 
 import Footer from '../src/components/Footer';
 import Layout from '../src/components/Layout';
 import { GridCloseIcon } from '@mui/x-data-grid';
 import { Oval } from 'react-loader-spinner';
+import AppForm from '../src/components/AppForm/AppForm';
+import AppFormField from '../src/components/AppForm/AppFormField';
+import SubmitButton from '../src/components/AppForm/SubmitButton';
 
 
 
 
 type Props = {}
 
+interface FormValues {
+  fullName: string;
+  email: string;
+  company: string;
+  phoneNumber: string;
+  message: string;
+}
+
 const Contact: NextPageWithLayout = (props: Props) => {
   const [alert, setAlert] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const [fullName, setFullName] = useState();
-  const [email, setEmail] = useState();
-  const [company, setCompany] = useState();
-  const [phone, setPhone] = useState();
-  const [message, setMessage] = useState();
 
 
-   // Validation schema 
+  // Declaring yup local
+  Yup.setLocale(fr);
+
+  // Validation schema 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required().label('Nom et prénom'),
     email: Yup.string().required().email().label('Email'),
     company: Yup.string().required().label('Entreprise'),
-    phone: Yup.string().required().min(10).max(10).label('Numéro de téléphone'),
+    phoneNumber: Yup.string().required().min(10).max(10).label('Numéro de téléphone'),
     message: Yup.string().required().label('Message'),
   });
-
-
 
   const ContactContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -49,7 +57,6 @@ const Contact: NextPageWithLayout = (props: Props) => {
     paddingBottom: '15px'
 
   }));
-
 
 
   const Title = styled(Typography)(({ theme }) => ({
@@ -66,34 +73,19 @@ const Contact: NextPageWithLayout = (props: Props) => {
   }));
 
   // Handlers
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    const form: any = document.getElementById('contact-form')
+  const handleSubmit = async (values: any) => {
+    // e.preventDefault();
     
     // update loading state 
     setLoading(true);
 
-    // Validating input
-    const body = {
-      fullName,
-      email,
-      company,
-      phone,
-      message,
-    }
-
-    const valid = await validationSchema.isValid(body);
-
-
-    if(valid){
       try {
-        const response: any = await fetch('https://tamdasaexpo.com/api/contact/contact-form', {
+        const response: any = await fetch('https://tadamsaexpo.com/api/contact/contact-form', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
           },
-          body: JSON.stringify(body)
+          body: JSON.stringify(values)
         });
   
        const data = await response.json();
@@ -102,21 +94,20 @@ const Contact: NextPageWithLayout = (props: Props) => {
 
        if(data.success){
         setAlert(data.data.message);
-        form.reset();
+        setLoading(false)
        }
 
-       setError(data.data.message)
+       if(!data.success){
+         setError(data.data.message)
+         setLoading(false)
+
+       }
   
-        setLoading(false)
         
       } catch (error: any) {
         console.log(error.data.message);
         setError(error.message)
       }
-    }
-
-    setLoading(false)
-
 
   }
   
@@ -176,73 +167,49 @@ const Contact: NextPageWithLayout = (props: Props) => {
           >
             Nous serions ravie de vous assister
           </Title>
-          <form id='contact-form'> 
-            <FormControl variant='outlined' fullWidth disabled>
-              <FormGroup>
-                <TextField 
-                  placeholder="Nom prénom"
-                  type="text"
-                  name="fullName"
-                  sx={{ paddingBottom: 3}}
-                  onChange={(e: any) => setFullName(e.target.value)}
-                />
-
-                <TextField 
-                  placeholder="Email"
-                  type="text"
-                  name="email"
-                  sx={{ paddingBottom: 3}}
-                  onChange={(e: any) => setEmail(e.target.value)}
-                />
-                <TextField 
-                  placeholder="Compangnie"
-                  type="text"
-                  name="company"
-                  sx={{ paddingBottom: 3}}
-                  onChange={(e: any) => setCompany(e.target.value)}
-                />
-                <TextField 
-                  placeholder="Téléphone"
-                  type="text"
-                  name="phone"
-                  sx={{ paddingBottom: 3}}
-                  onChange={(e: any) => setPhone(e.target.value)}
-                />
-                <TextField 
-                  placeholder="Votre message"
-                  type="text"
-                  name="message"
-                  multiline
-                  rows={8}
-                  onChange={(e: any) => setMessage(e.target.value)}
-                />
-              </FormGroup>
+            <AppForm
+              initialValues={{
+                fullName: '',
+                email:'',
+                company: '',
+                phoneNumber: '',
+                message: ''
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values: any) => handleSubmit(values)}
+            >  
+            <FormControl fullWidth>
+              <AppFormField 
+                id='fullName'
+                name='fullName'
+                placeholder='Nom et Prénom'
+              />
+              <AppFormField 
+                id='email'
+                name='email'
+                placeholder='Email'
+              />
+              <AppFormField 
+                id='company'
+                name='company'
+                placeholder='Entreprise'
+              />
+              <AppFormField 
+                id='phoneNumber'
+                name='phoneNumber'
+                placeholder='Numero de téléphone'
+              />
+              <AppFormField 
+                id='message'
+                name='message'
+                placeholder='Message'
+                multiline
+                rows={8}
+              />
             </FormControl>
-            <Box sx={{ textAlign: 'center'}}>
-              <Button 
-                variant='contained' 
-                size='large'
-                sx={{ marginTop: 2 }}
-                onClick={handleSubmit}
-              >
-                  {
-                    loading ?
-                    <Oval 
-                      height={22}
-                      width={22}
-                      color='#fff'
-                      secondaryColor='#fff'
-                    
-                    />
-
-                    :
-
-                    'Envoyer'
-
-                  }
-              </Button>
-            </Box>
-            {
+            <SubmitButton title={loading ? <Oval height={22} width={22} color='#fff' secondaryColor='#fff' /> : 'Envoyer'} />
+          </AppForm>
+          {
             alert && 
             <Alert
             sx={{ marginTop: 2 }}
@@ -283,7 +250,6 @@ const Contact: NextPageWithLayout = (props: Props) => {
            {error}
           </Alert>
           } 
-          </form>
         </Grid>
         <Grid item xs={12} md={6}> 
           <Box>
@@ -307,7 +273,7 @@ const Contact: NextPageWithLayout = (props: Props) => {
                 variant='subtitle1'
                 color='text.secondary'
               >
-                06 Rue ADMANE Arezki, Alger Ctre 16000
+                Direction générale 06, Rue Admane AREZKI. 16000 Alger centre - Alger (Près du Palais du gouvernement)
               </Typography> 
           </Box> 
           <Box sx={{ marginTop: 3 }}>

@@ -7,6 +7,7 @@ import ErrorMessage from './ErrorMessage';
 
 interface FormFieldProps {
     name?: any;
+    [key: string]: any;
 }
 
 
@@ -22,6 +23,7 @@ const AppFormField = ({ name, ...otherProps }: FormFieldProps) => {
             onBlur={() => setFieldTouched(name)}
             value={values.name}
             {...otherProps}
+            sx={{ paddingY: 1 }}
         />
         <ErrorMessage error={errors[name]} visible={touched[name]} /> 
       </FormControl>

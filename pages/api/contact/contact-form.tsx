@@ -8,9 +8,7 @@ type Data = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     if(req.method == 'POST'){
-        const { fullName, email, company, phone, message } = req.body;
-
-        console.log(fullName, email, company, phone, message)
+        const { fullName, email, company, phoneNumber, message } = req.body;
 
         // Transporter init
         let transporter = nodemailer.createTransport({
@@ -27,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         // Email content
         let info = await transporter.sendMail({
           from: `${email}`, // sender address
-          to: "itsupport@bevalg.com", // list of receivers
+          to: "contact@tadamsaexpo.com", // list of receivers
           subject: "Demande D'information | Formulaire en ligne Tadamsa Expo",
           html: 
           `   
@@ -36,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 <p style="color: #5B113C; font-weight: bold;">Nom et prenom: <span style="color: black;">${fullName}</span></p>
                 <p style="color: #5B113C; font-weight: bold;">Email: <span style="color: black;">${email}</span></p>
                 <p style="color: #5B113C; font-weight: bold;">Entreprise: <span style="color: black;">${company}</span></p>
-                <p style="color: #5B113C; font-weight: bold;">Numero de telephone: <span style="color: black;">${phone}</span></p>
+                <p style="color: #5B113C; font-weight: bold;">Numero de telephone: <span style="color: black;">${phoneNumber}</span></p>
                 <p style="color: #5B113C; font-weight: bold;">Message : <span style="color: black;">${message}</span></p>
                 </div>
 
